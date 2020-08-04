@@ -43,15 +43,15 @@ jobs:
           # Use Docker `latest` tag convention
           [ "$VERSION" == "master" ] && VERSION=latest
 
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-      
       - name: Build Gateway Service
         run: |
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+
           if [ -f docker-compose.yml ]; then
             docker-compose --file docker-compose.yml build
           else
-            docker build -t $IMAGE_NAME:$VERSION -f ./services/edge-gateway/Dockerfile .
+            docker build -t $IMAGE_NAME -f ./services/edge-gateway/Dockerfile .
           fi
 
   # Push image to GitHub Packages.
@@ -68,4 +68,4 @@ jobs:
         
       - name: Push image
         run: |
-          docker push $IMAGE_NAME:$VERSION
+          docker push $IMAGE_NAME
