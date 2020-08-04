@@ -14,8 +14,9 @@ env:
   DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
 
 jobs:
-  build:
+  push:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
 
     steps:
       - uses: actions/checkout@v2
@@ -53,19 +54,7 @@ jobs:
           else
             docker build -t $IMAGE_NAME -f ./services/edge-gateway/Dockerfile .
           fi
-
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
-  push:
-    # Ensure test job passes before pushing image.
-    needs: build
-
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
-    steps:
-      - uses: actions/checkout@v2
-        
       - name: Push image
         run: |
           docker push $IMAGE_NAME
+
