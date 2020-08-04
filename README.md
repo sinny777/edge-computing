@@ -4,6 +4,7 @@ This repository is based on generic architecture for Edge Computing, which inclu
 
 # References
 
+- [IBM Edge Application Manager](https://www.ibm.com/cloud/edge-application-manager)
 - [Edge Computing Architecture](https://www.ibm.com/cloud/architecture/architectures/edge-computing)
 - [Edge Computing Reference Architecture](https://www.ibm.com/cloud/architecture/architectures/edge-computing/reference-architecture)
 - [Red Hat Edge Computing](https://www.redhat.com/en/topics/edge-computing/why-choose-red-hat-edge-computing)
