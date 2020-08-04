@@ -1,6 +1,9 @@
 # Check out https://hub.docker.com/_/node to select a new base image
 FROM node:12-slim
 
+LABEL author="Gurvinder Singh <sinny777@gmail.com>"
+LABEL profile="http://www.gurvinder.info"
+
 USER root
 
 # Updates and adds system required packages
