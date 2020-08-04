@@ -1,17 +1,6 @@
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
-
-const config = {
-  name: 'mongodb',
-  connector: 'mongodb',
-  url: '',
-  host: 'localhost',
-  port: 27017,
-  user: 'admin',
-  password: '1SatnamW',
-  database: 'gateway',
-  useNewUrlParser: true
-};
+import * as config from './default.datasource.json';
 
 // Observe application's life cycle to disconnect the datasource when
 // application is stopped. This allows the application to be shut down
@@ -21,14 +10,12 @@ const config = {
 export class MongodbDataSource extends juggler.DataSource
   implements LifeCycleObserver {
   static dataSourceName = 'mongodb';
-  static readonly defaultConfig = config;
 
   constructor(
     @inject('datasources.config.mongodb', {optional: true})
     dsConfig: object = config,
   ) {
-    // console.log(dsConfig);
-
+    
     dsConfig = {
       name: 'system-info',
       connector: process.env.DB_CONNECTOR,
