@@ -5,7 +5,7 @@
 ## Requirements
 
 - All devices should be able to connect to the Gateway via BLE, LoRA, XBEE or OpenThread
-- It shoould be able to connect to the Internet
+- It should be able to connect to the Internet
 - It should know what all devices it can handle
 - It should save all data in raw format in local DB (DB on the Edge Device)
 - It should have a Rule-engine service running
@@ -21,4 +21,4 @@
 
 ## Refrences
 
-- [Rule Engine] (https://github.com/cachecontrol/json-rules-engine)
+- [Rule Engine](https://github.com/cachecontrol/json-rules-engine)

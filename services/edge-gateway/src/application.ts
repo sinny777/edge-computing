@@ -1,3 +1,4 @@
+import { GatewayService } from './services/gateway.service';
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
 import {
@@ -9,6 +10,7 @@ import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
+import { ServiceBindings } from './keys';
 
 export {ApplicationConfig};
 
@@ -29,6 +31,10 @@ export class EdgeGatewayApplication extends BootMixin(
       path: '/explorer',
     });
     this.component(RestExplorerComponent);
+
+
+    this.bind(ServiceBindings.GATEWAY_SERVICE).toClass(GatewayService);
+
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here
