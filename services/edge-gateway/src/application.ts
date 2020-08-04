@@ -9,6 +9,7 @@ import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
+import * as dotenv from "dotenv";
 import {MySequence} from './sequence';
 import { ServiceBindings } from './keys';
 
@@ -19,7 +20,11 @@ export class EdgeGatewayApplication extends BootMixin(
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
-
+    dotenv.config();
+    let env_path = process.env.NODE_ENV;
+    if(env_path){
+      dotenv.config({ path: env_path });
+    } 
     // Set up the custom sequence
     this.sequence(MySequence);
 

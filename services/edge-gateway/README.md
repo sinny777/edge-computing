@@ -18,6 +18,15 @@
 - Start NgRok Service 
 - Fetch/Synchronize latest configurations for Gateway and Devices from the Cloud
 
+## Gateway Docker
+
+- Build docker image for Edge-Gateway
+
+```
+
+docker build -t sinny777/edge-gateway -f ./services/edge-gateway/Dockerfile .
+```
+
 
 ## Refrences
 
