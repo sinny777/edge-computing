@@ -24,7 +24,7 @@ jobs:
           if [ -f docker-compose.yml ]; then
             docker-compose --file docker-compose.yml build
           else
-            docker build ./services/edge-gateway --file Dockerfile -t $IMAGE_NAME
+            docker build ./services/edge-gateway -t $IMAGE_NAME
           fi
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
