@@ -1,4 +1,3 @@
-# Check out https://hub.docker.com/_/node to select a new base image
 FROM node:12-slim
 
 LABEL author="Gurvinder Singh <sinny777@gmail.com>"
@@ -23,9 +22,9 @@ ADD ./services/edge-gateway /edge-gateway
 
 RUN npm install -g node-gyp
 RUN npm install -g node-pre-gyp
+RUN npm ci
 RUN npm install serialport --unsafe-perm --build-from-source
 # RUN npm install && bower --allow-root install --fix-missing
-RUN npm ci
 
 # Bundle app source code
 # COPY --chown=node . .
