@@ -66,7 +66,7 @@ sudo nano /etc/cloud/cloud.cfg
 
  => Search for preserve_hostname and change the value from false to true:
 
-# Enable Bluetooth
+### Enable Bluetooth
 
 ```
 
@@ -103,18 +103,16 @@ Before you start scanning for devices, install the blueman package which helps y
 sudo apt-get install blueman
 ```
 
-# Running Edge-Gateway
+### Running Edge-Gateway
 
 ```
 
-mkdir edge
-cd edge
-wget https://raw.githubusercontent.com/sinny777/edge-computing/master/docker-compose.yml
-sudo docker-compose up
+sudo wget https://raw.githubusercontent.com/sinny777/edge-computing/master/build/installNrun.sh
+sudo sh installNrun.sh
 ```
 
 
-# Docker Important Commands
+## Docker Important Commands
 
 - Remove Dangling images
 
@@ -124,7 +122,7 @@ docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 ```
 
 
-# References
+## References
 
 - [IBM Edge Application Manager](https://www.ibm.com/cloud/edge-application-manager)
 - [Edge Computing Architecture](https://www.ibm.com/cloud/architecture/architectures/edge-computing)
