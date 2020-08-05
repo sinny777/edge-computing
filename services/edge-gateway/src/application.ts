@@ -1,3 +1,4 @@
+import { CommonService } from './services/common.service';
 import { GatewayService } from './services/gateway.service';
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
@@ -38,6 +39,7 @@ export class EdgeGatewayApplication extends BootMixin(
     this.component(RestExplorerComponent);
 
 
+    this.bind(ServiceBindings.COMMON_SERVICE).toClass(CommonService);
     this.bind(ServiceBindings.GATEWAY_SERVICE).toClass(GatewayService);
 
 
