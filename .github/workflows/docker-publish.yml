@@ -49,11 +49,12 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          if [ -f docker-compose.yml ]; then
-            docker-compose --file docker-compose.yml build
-          else
-            docker build -t $IMAGE_NAME -f ./services/edge-gateway/Dockerfile .
-          fi
+          # if [ -f docker-compose.yml ]; then
+          #   docker-compose --file docker-compose.yml build
+          # else
+          #   docker build -t $IMAGE_NAME -f ./services/edge-gateway/Dockerfile .
+          # fi
+          docker build -t $IMAGE_NAME -f ./services/edge-gateway/Dockerfile .
       - name: Push image
         run: |
           docker push $IMAGE_NAME
