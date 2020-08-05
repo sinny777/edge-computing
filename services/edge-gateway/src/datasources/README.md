@@ -12,3 +12,5 @@ docker run -d --name gateway-mongo -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=
 
 
 docker build -t sinny777/edge-gateway -f ./services/edge-gateway/Dockerfile .
+
+docker run -rm -it --name edge-gateway -p 9000:9000 --env-file .env sinny777/edge-gateway
