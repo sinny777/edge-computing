@@ -36,8 +36,8 @@ services:
     ports:
       - '27017-27019:27017-27019'
     volumes:
-      - ./services/mongodb/data/db:/data/db
-      - ./services/mongodb/init-mongo.js:/docker-entrypoinht-initdb.d/init-mongo.js:ro
+      - ./data/db:/data/db
+      - ./init-mongo.sh:/docker-entrypoinht-initdb.d/init-mongo.sh:ro
 
 
 
