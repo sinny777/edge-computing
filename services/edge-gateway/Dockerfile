@@ -1,4 +1,5 @@
-FROM node:12-slim
+# FROM node:12-slim
+FROM arm64v8/node:12.18.3-buster-slim
 
 LABEL author="Gurvinder Singh <sinny777@gmail.com>"
 LABEL profile="http://www.gurvinder.info"
