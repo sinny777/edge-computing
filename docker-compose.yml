@@ -22,7 +22,7 @@ services:
     links:
       - "mongodb:mongo"
   mongodb:
-    image: mongo:latest
+    image: mongo:4.4.0
     container_name: mongodb
     privileged: true
     restart: on-failure
