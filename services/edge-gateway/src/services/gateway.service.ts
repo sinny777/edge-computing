@@ -9,15 +9,6 @@ export class GatewayService {
 
   
   async onStart(){
-    // const valueObject = {
-    //   cpu: '*',
-    //   osInfo: 'platform, release',
-    //   system: 'model, version, serial, uuid, sku',
-    //   mem: 'total, free, used',
-    //   battery: 'hasbattery, percent'
-    // }
-    // let systemInfo = await this.getSystemInformation(valueObject);
-    // console.log(systemInfo);
     console.log(' IN GatewayService.onStart: >>>>>> ');
   }
 
