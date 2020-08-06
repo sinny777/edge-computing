@@ -7,6 +7,7 @@ export class RadioService {
 
     radio: any;
     FREQUENCY: string = '433e6';
+    isAvailable: boolean = false;
 
     constructor() {
         if(process.platform != 'darwin'){
@@ -22,33 +23,36 @@ export class RadioService {
         this.radio = new RADIO({
               frequency: this.FREQUENCY
             });
-            let that = this;
-            this.radio.open(function(err: any) {
+            this.radio.open((err: any) => {
               console.log('Radio Open: ', err ? err : 'success');
               if (err) {
                   console.log(err);
+                  this.isAvailable = false;
               }
-              that.radio.on('data', function(data: any, rssi: any) {
+              this.isAvailable = true;
+              this.radio.on('data', (data: any, rssi: any) => {
 //				    console.log('data:', '\'' + data.toString() + '\'', rssi);
                 console.log('\n\nRadio data received: ' + data.toString());
                   
               });
 
               // enable receive mode
-              that.radio.receive(function(err: any) {
+              this.radio.receive((err: any) => {
                 console.log('LORA In Receive Mode ', err ? err : 'success');
               });
             });
 
-            process.on('SIGINT', function() {
+            process.on('SIGINT', () => {
               // close the device
-              that.radio.close(function(err: any) {
+              this.isAvailable = false;
+              this.radio.close(function(err: any) {
                 console.log('close', err ? err : 'success');
                 process.exit();
               });
             });
 
         }catch(err){
+            this.isAvailable = false;
             console.log("Error in initRadion: >>>>>>> ");
             console.log(err);
         }

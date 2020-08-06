@@ -1,7 +1,8 @@
 # Edge Computing
 
-This repository is based on generic architecture for Edge Computing, which includes both working on the Edge Devices and also on the Edge Server.
+## NOTE: WORK IS IN PROGRESS
 
+This repository is based on generic architecture for Edge Computing, which includes both working on the Edge Devices and also on the Edge Server.
 
 ## Edge Gateway
 
