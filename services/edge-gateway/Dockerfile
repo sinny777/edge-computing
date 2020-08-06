@@ -1,4 +1,3 @@
-# FROM node:12-slim
 FROM arm64v8/node:12.18.3-buster-slim
 
 LABEL author="Gurvinder Singh <sinny777@gmail.com>"
@@ -18,8 +17,9 @@ RUN apt-get update && \
 RUN mkdir -p /edge-gateway
 WORKDIR /edge-gateway
 
-# COPY --chown=node package*.json ./services/edge-gateway/*
-ADD ./services/edge-gateway /edge-gateway
+# ADD ./services/edge-gateway /edge-gateway
+ADD ./ /edge-gateway
+RUN ls /edge-gateway
 
 # RUN npm install -g node-gyp
 # RUN npm install -g node-pre-gyp
