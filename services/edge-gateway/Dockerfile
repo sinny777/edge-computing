@@ -20,10 +20,11 @@ WORKDIR /edge-gateway
 ADD ./ /edge-gateway
 # RUN ls /edge-gateway
 
+RUN npm config set registry http://registry.npmjs.org
 RUN npm install -g node-gyp
 RUN npm install -g node-pre-gyp
-# RUN npm install serialport --unsafe-perm --build-from-source
-# RUN npm install && bower --allow-root install --fix-missing
+RUN npm i -g @loopback/cli
+RUN npm i -g @loopback/build
 
 RUN JOBS=MAX npm i --unsafe-perm --production
 RUN npm i edge-sx127x --save --unsafe-perm --production
