@@ -21,8 +21,8 @@ WORKDIR /edge-gateway
 ADD ./ /edge-gateway
 RUN ls /edge-gateway
 
-# RUN npm install -g node-gyp
-# RUN npm install -g node-pre-gyp
+RUN npm install -g node-gyp
+RUN npm install -g node-pre-gyp
 RUN npm ci
 # RUN npm install serialport --unsafe-perm --build-from-source
 # RUN npm install && bower --allow-root install --fix-missing
