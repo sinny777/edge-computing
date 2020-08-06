@@ -3,7 +3,15 @@
   "extends": "@loopback/build/config/tsconfig.common.json",
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "importHelpers": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "./node_modules",
+    "./node_modules/*",
+    "./node_modules/@types/node/index.d.ts",
+    "**/*.spec.ts"
+  ]
 }

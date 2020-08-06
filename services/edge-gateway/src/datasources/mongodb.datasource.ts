@@ -30,8 +30,6 @@ export class MongodbDataSource extends juggler.DataSource
       'retryTimeout': 1000
     };
 
-    console.log(dsConfig);
-
     super(dsConfig);
   }
 }
