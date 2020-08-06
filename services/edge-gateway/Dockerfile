@@ -6,12 +6,12 @@ LABEL profile="http://www.gurvinder.info"
 USER root
 
 # Updates and adds system required packages
-# RUN apt-get update && \
-#     apt-get -qy install curl ca-certificates nano python make \
-#     build-essential \
-#     cmake \
-#     gcc \
-#     -y --no-install-recommends --fix-missing apt-utils netcat && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get -qy install curl ca-certificates nano python make \
+    build-essential \
+    cmake \
+    gcc \
+    -y --no-install-recommends --fix-missing apt-utils netcat && rm -rf /var/lib/apt/lists/*
 
 
 RUN mkdir -p /edge-gateway
