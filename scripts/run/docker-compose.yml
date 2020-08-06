@@ -21,8 +21,8 @@ services:
       - mongodb
     links:
       - "mongodb:mongo"
-    volumes:
-      - /dev/mem:/dev/mem
+    devices: 
+      - /dev/mem:/dev/mem    
   mongodb:
     image: mongo:4.4.0
     container_name: mongodb

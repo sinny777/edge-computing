@@ -4,6 +4,8 @@ mkdir -p edge/build
 
 cd edge/build
 
+sudo modprobe bcm2835-v4l2
+
 sudo rm -rf docker-compose.yml
 sudo rm -rf init-mongo.sh
 

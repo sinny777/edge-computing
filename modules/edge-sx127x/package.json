@@ -1,0 +1,22 @@
+{
+  "name": "edge-sx127x",
+  "version": "1.0.0",
+  "description": "LoRa module with latest dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "LoRa"
+  ],
+  "author": "Gurvinder Singh",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.2.0",
+    "onoff": "^6.0.0",
+    "spi-device": "^3.1.0"
+  },
+  "os": [
+    "linux"
+  ]  
+}

@@ -1,7 +1,7 @@
 const os = require('os');
 var spawn = require('cross-spawn');
 
- console.log(os.platform());
+//  console.log(os.platform());
  console.log(process.platform);
 
 /*
@@ -14,8 +14,8 @@ if (os.platform() === 'win32') {
 */
 
 if(process.platform != 'darwin'){
-  spawn.sync('npm', ['install', 'sx127x', 'latest'], {
-      input: 'linux detected. Install sx127x module.',
+  spawn.sync('npm', ['install', 'edge-sx127x', 'latest'], {
+      input: 'linux detected. Install edge-sx127x module.',
       stdio: 'inherit'
   });
 }

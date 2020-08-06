@@ -11,7 +11,7 @@ export class RadioService {
 
     constructor() {
         if(process.platform != 'darwin'){
-            RADIO = require('sx127x');
+            RADIO = require('edge-sx127x');
         }
     }
 
