@@ -24,7 +24,7 @@
 
 ```
 
-docker build -t sinny777/edge-gateway -f ./services/edge-gateway/Dockerfile .
+docker build -t sinny777/edge-gateway -f ./services/edge-gateway/Dockerfile ./services/edge-gateway
 ```
 
 

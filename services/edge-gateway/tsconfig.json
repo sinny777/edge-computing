@@ -4,15 +4,9 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "importHelpers": true,
+    "resolveJsonModule": true,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
-  "include": ["src"],
-  "exclude": [
-    "node_modules",
-    "./node_modules",
-    "./node_modules/*",
-    "./node_modules/@types/node/index.d.ts",
-    "**/*.spec.ts"
-  ]
+  "include": ["src"]
 }
