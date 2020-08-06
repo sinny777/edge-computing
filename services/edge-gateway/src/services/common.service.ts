@@ -19,6 +19,7 @@ export class CommonService {
     // systemInfo.cpus = os.cpus();
     systemInfo.uptime = os.uptime() / 60;
     systemInfo.serialNumber = await this.getSerialNumber();
+    systemInfo.platform = process.platform;
     return systemInfo;
   }
 

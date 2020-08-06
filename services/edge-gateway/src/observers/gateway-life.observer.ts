@@ -20,6 +20,10 @@ export class GatewayLifeObserver implements LifeCycleObserver {
     @inject(ServiceBindings.GATEWAY_SERVICE) private gatewayService: GatewayService,
   ) {}
 
+  async boot(): Promise<void> {
+    console.log('\n\n<<<<<<<<< Gateway App Booted >>>>>>>>>>>\n\n');    
+  }
+
   /**
    * This method will be invoked when the application starts
    */
@@ -27,9 +31,7 @@ export class GatewayLifeObserver implements LifeCycleObserver {
     console.log('\n\n<<<<<<<<< Gateway App Started >>>>>>>>>>>\n\n');
     let cleanup = new Cleanup();
     cleanup.init(this.cleanupOnExit);
-
     this.gatewayService.onStart();
-
   }
 
   /**
@@ -40,7 +42,7 @@ export class GatewayLifeObserver implements LifeCycleObserver {
   }
 
   cleanupOnExit(){
-		console.log('\n\n<<<<<<<<< CALLING CLEANUP PROCESS >>>>>>>>> \n\n');
+		console.log('\n\n<<<<<<<<< CALLING CLEANUP PROCESS ON EXIT >>>>>>>>> \n\n');
 //		sensortagHandler.disconnectSensorTags();
 		// FACTORY.GatewayHandler().destroyGPIOs(function(err, result){
 		// 	console.log("<<<<<<< Gateway Stopped, Good Bye >>>>>>>>\n");

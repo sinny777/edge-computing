@@ -12,8 +12,6 @@ export class Cleanup {
 
       // do app specific cleaning before exiting
       process.on('exit', function () {
-        console.log(" APPLICATION ON EXIT >>>>>>> ");
-        // process.emitWarning('cleanup');
         callback();
       });
 
