@@ -26,8 +26,8 @@ RUN npm install -g node-pre-gyp
 
 # RUN JOBS=MAX npm i --unsafe-perm --production
 # RUN npm i edge-sx127x --save --unsafe-perm --production
-RUN JOBS=MAX npm i 
-RUN npm i edge-sx127x
+RUN JOBS=MAX npm ci 
+# RUN npm i edge-sx127x
 RUN npm run build
 
 # Bind to all network interfaces so that it can be mapped to the host OS
