@@ -139,7 +139,7 @@ sudo apt-get install blueman
 
 ```
 
-sudo wget https://raw.githubusercontent.com/sinny777/edge-computing/master/build/installNrun.sh
+sudo wget https://raw.githubusercontent.com/sinny777/edge-computing/master/scripts/run/installNrun.sh
 sudo sh installNrun.sh
 ```
 
