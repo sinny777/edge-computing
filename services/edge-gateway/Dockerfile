@@ -24,6 +24,7 @@ RUN ls /edge-gateway
 RUN npm install -g node-gyp
 RUN npm install -g node-pre-gyp
 RUN npm ci
+RUN npm install edge-sx127x --save
 # RUN npm install serialport --unsafe-perm --build-from-source
 # RUN npm install && bower --allow-root install --fix-missing
 
