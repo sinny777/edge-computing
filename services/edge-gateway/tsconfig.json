@@ -4,7 +4,8 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "importHelpers": true
+    "importHelpers": true,
+    "experimentalDecorators": true
   },
   "include": ["src"],
   "exclude": [
