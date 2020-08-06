@@ -22,7 +22,7 @@ ADD ./ /edge-gateway
 
 RUN npm install -g node-gyp
 RUN npm install -g node-pre-gyp
-RUN npm ci
+# RUN npm ci
 # RUN npm install edge-sx127x --save
 # RUN npm install serialport --unsafe-perm --build-from-source
 # RUN npm install && bower --allow-root install --fix-missing
@@ -30,7 +30,7 @@ RUN npm ci
 # Bundle app source code
 # COPY --chown=node . .
 
-RUN npm run build
+# RUN npm run build
 
 # Bind to all network interfaces so that it can be mapped to the host OS
 ENV HOST=0.0.0.0 PORT=9000
