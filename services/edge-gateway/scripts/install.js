@@ -14,7 +14,7 @@ if (os.platform() === 'win32') {
 */
 
 if(process.platform != 'darwin'){
-  spawn.sync('npm', ['install', 'edge-sx127x', 'latest'], {
+  spawn.sync('npm', ['install', 'edge-sx127x', '1.0.0'], {
       input: 'linux detected. Install edge-sx127x module.',
       stdio: 'inherit'
   });
