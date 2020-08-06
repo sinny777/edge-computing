@@ -68,6 +68,38 @@ sudo nano /etc/cloud/cloud.cfg
 
 ### Enable Bluetooth
 
+On the Pi 4, BT is disabled by default in profit of the serial terminal..
+
+
+```
+sudo nano /boot/firmware/nobtcfg.txt
+
+# This configuration file sets the system up to support the serial console on
+# GPIOs 14 & 15. This is the default for Ubuntu on the Pi, but disables the use
+# of the Bluetooth module.
+#
+# If you wish to disable the serial console and use Bluetooth instead, install
+# the "pi-bluetooth" package then edit "syscfg.txt" to include "btcfg.txt"
+# instead of "nobtcfg.txt"
+```
+
+Your syscfg.txt should look like this:
+
+```
+
+# This file is intended to contain system-made configuration changes. User
+# configuration changes should be placed in "usercfg.txt". Please refer to the
+# README file for a description of the various configuration files on the boot
+# partition.
+
+dtparam=i2c_arm=on
+dtparam=spi=on
+
+# include nobtcfg.txt
+include btcfg.txt
+```
+
+
 ```
 
 sudo apt-get install bluetooth bluez bluez-tools rfkill
