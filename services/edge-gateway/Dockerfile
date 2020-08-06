@@ -18,9 +18,8 @@ RUN mkdir -p /edge-gateway
 WORKDIR /edge-gateway
 
 ADD ./ /edge-gateway
-# RUN ls /edge-gateway
 
-RUN npm config set registry http://registry.npmjs.org
+# RUN npm config set registry http://registry.npmjs.org
 RUN npm install -g node-gyp
 RUN npm install -g node-pre-gyp
 RUN npm i -g @loopback/cli
