@@ -47,6 +47,11 @@ export class SystemInfo extends BaseEntity {
   })
   networkStats: object| undefined;
 
+  @property({
+    type: 'object',
+  })
+  other: any| undefined;
+
   // Define well-known properties here
 
   // Indexer property to allow additional data

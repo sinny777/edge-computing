@@ -1,13 +1,14 @@
+import { RadioServiceI } from './types';
 import {bind, inject, BindingScope} from '@loopback/core';
 // import * as RADIO from 'sx127x';
 let RADIO: any;
 
 @bind({scope: BindingScope.TRANSIENT})
-export class RadioService {
+export class RadioService implements RadioServiceI {
 
     radio: any;
     FREQUENCY: string = '433e6';
-    isAvailable: boolean = false;
+    private radioAvailable: boolean = false;
 
     constructor() {
         if(process.platform != 'darwin'){
@@ -15,10 +16,10 @@ export class RadioService {
         }
     }
 
-  async initRadio(){    
+  async initRadio(): Promise<void>{    
     try{
         if(this.radio || !RADIO){
-            return false;
+            return;
         }
         this.radio = new RADIO({
               frequency: this.FREQUENCY
@@ -27,13 +28,12 @@ export class RadioService {
               console.log('Radio Open: ', err ? err : 'success');
               if (err) {
                   console.log(err);
-                  this.isAvailable = false;
+                  this.radioAvailable = false;
               }
-              this.isAvailable = true;
+              this.radioAvailable = true;
               this.radio.on('data', (data: any, rssi: any) => {
-//				    console.log('data:', '\'' + data.toString() + '\'', rssi);
-                console.log('\n\nRadio data received: ' + data.toString());
-                  
+				        console.log('data:', '\'' + data.toString() + '\'', rssi);
+                console.log('\n\nRadio data received: ' + data.toString());                  
               });
 
               // enable receive mode
@@ -44,7 +44,7 @@ export class RadioService {
 
             process.on('SIGINT', () => {
               // close the device
-              this.isAvailable = false;
+              this.radioAvailable = false;
               this.radio.close(function(err: any) {
                 console.log('close', err ? err : 'success');
                 process.exit();
@@ -52,10 +52,14 @@ export class RadioService {
             });
 
         }catch(err){
-            this.isAvailable = false;
+            this.radioAvailable = false;
             console.log("Error in initRadion: >>>>>>> ");
             console.log(err);
         }
+  }
+
+  isAvailable() {
+    return this.radioAvailable;
   }
 
 

@@ -4,8 +4,8 @@ import {
   LifeCycleObserver
 } from '@loopback/core';
 import { Cleanup } from '../utils/cleanup';
-import { GatewayService } from './../services/gateway.service';
 import { ServiceBindings } from '../keys';
+import { GatewayServiceI } from './../services/types';
 // import { juggler } from '@loopback/repository';
 
 /**
@@ -17,7 +17,7 @@ export class GatewayLifeObserver implements LifeCycleObserver {
   constructor(
     // inject `app` if you need access to other artifacts by `await this.app.get()`
     @inject(CoreBindings.APPLICATION_INSTANCE) private app: Application,
-    @inject(ServiceBindings.GATEWAY_SERVICE) private gatewayService: GatewayService,
+    @inject(ServiceBindings.GATEWAY_SERVICE) private gatewayService: GatewayServiceI,
   ) {}
 
   async boot(): Promise<void> {
@@ -31,7 +31,7 @@ export class GatewayLifeObserver implements LifeCycleObserver {
     console.log('\n\n<<<<<<<<< Gateway App Started >>>>>>>>>>>\n\n');
     let cleanup = new Cleanup();
     cleanup.init(this.cleanupOnExit);
-    this.gatewayService.onStart();
+    this.gatewayService.initGateway();
   }
 
   /**

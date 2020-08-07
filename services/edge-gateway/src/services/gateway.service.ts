@@ -1,27 +1,28 @@
-import { SystemInfo } from './../models/system-info.model';
+// import { SystemInfo } from './../models/system-info.model';
 import {bind, inject, BindingScope} from '@loopback/core';
 import { ServiceBindings } from '../keys';
-import { CommonService, RadioService } from '.';
+import { RadioServiceI, CommonServiceI, GatewayServiceI } from './types';
+import { SystemInfo } from '../models';
 
 @bind({scope: BindingScope.TRANSIENT})
-export class GatewayService {
+export class GatewayService implements GatewayServiceI {
   constructor(
-    @inject(ServiceBindings.COMMON_SERVICE) private commonService: CommonService,
-    @inject(ServiceBindings.RADIO_SERVICE) private radioService: RadioService,
+    @inject(ServiceBindings.COMMON_SERVICE) private commonService: CommonServiceI,
+    @inject(ServiceBindings.RADIO_SERVICE) private radioService: RadioServiceI,
   ) {}
 
   
-  async onStart(){
+  async initGateway(): Promise<void>{
     console.log(' IN GatewayService.onStart: >>>>>> ');
     await this.radioService.initRadio();
   }
 
-  async getSystemInformation(valueObject: any){   
+  async getSystemInformation(valueObject: any): Promise<SystemInfo>{   
     let systemInfo = await this.commonService.getSystemInformation(valueObject);
-    if(systemInfo && systemInfo.internet) {
-      systemInfo.internetAwailable = systemInfo.internet.ok;
+    if(!systemInfo.other){
+      systemInfo.other = {};
     }
-    systemInfo.radioAvailable = this.radioService.isAvailable;
+    systemInfo.other.radioAvailable = this.radioService.isAvailable();
     delete systemInfo.internet;
     return systemInfo;
   }
