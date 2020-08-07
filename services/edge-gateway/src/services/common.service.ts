@@ -1,29 +1,34 @@
-import {bind, inject, BindingScope} from '@loopback/core';
+import {bind, BindingScope} from '@loopback/core';
 import * as si from 'systeminformation';
 import * as os from 'os';
 import * as fs from 'fs';
+import { CommonServiceI } from '.';
+import { SystemInfo } from './../models/system-info.model';
 
 @bind({scope: BindingScope.TRANSIENT})
-export class CommonService {
+export class CommonService implements CommonServiceI {
   constructor(
     
   ) {}
 
-  async getSystemInformation(valueObject: any){    
-    let systemInfo = await si.get(valueObject);
+  async getSystemInformation(valueObject: any): Promise<SystemInfo> {    
+    let systemInfo: SystemInfo = await si.get(valueObject);
     systemInfo.internet = await si.inetChecksite('google.com');
-
-    // let systemInfo: any  = {};
-    systemInfo.totalmem = os.totalmem() / (1024 * 1024);
-    systemInfo.freemem = os.freemem() / (1024 * 1024);
+    systemInfo.other = {};
+    if(systemInfo && systemInfo.internet) {
+      systemInfo.other.internetAvailable = systemInfo.internet.ok;
+      delete systemInfo.internet;
+    }
+    systemInfo.other.totalmem = os.totalmem() / (1024 * 1024);
+    systemInfo.other.freemem = os.freemem() / (1024 * 1024);
     // systemInfo.cpus = os.cpus();
-    systemInfo.uptime = os.uptime() / 60;
-    systemInfo.serialNumber = await this.getSerialNumber();
-    systemInfo.platform = process.platform;
+    systemInfo.other.uptime = os.uptime() / 60;
+    systemInfo.other.serialNumber = await this.getSerialNumber();
+    systemInfo.other.platform = process.platform;
     return systemInfo;
   }
 
-  async getSerialNumber() {
+  async getSerialNumber(): Promise<string> {
 		try{
 			  let content = fs.readFileSync('/proc/cpuinfo', 'utf8');
 		    let cont_array = content.split("\n");
@@ -36,7 +41,7 @@ export class CommonService {
 			if(process.platform == 'darwin'){
 				return "000000008c0be72b";
 			}else{
-				return null;
+				return '';
 			}
     }
   }

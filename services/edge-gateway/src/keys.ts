@@ -1,11 +1,12 @@
+
 import {BindingKey} from '@loopback/context';
-import { CommonService } from './services/common.service';
+import { CommonServiceI } from './services/types';
 import { GatewayService } from './services/gateway.service';
 import { RadioService } from './services';
 
 export namespace ServiceBindings {
 
-  export const COMMON_SERVICE = BindingKey.create<CommonService | undefined>(
+  export const COMMON_SERVICE = BindingKey.create<CommonServiceI | undefined>(
     'common.service',
   );
 
