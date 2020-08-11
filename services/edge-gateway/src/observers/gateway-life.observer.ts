@@ -1,10 +1,11 @@
+import { SimulatorUtilityI } from './../utils/types';
 import {
   inject, Application, CoreBindings,
   lifeCycleObserver, // The decorator
   LifeCycleObserver
 } from '@loopback/core';
 import { Cleanup } from '../utils/cleanup';
-import { ServiceBindings } from '../keys';
+import { ServiceBindings, UtilityBindings } from '../keys';
 import { GatewayServiceI } from './../services/types';
 // import { juggler } from '@loopback/repository';
 
@@ -18,6 +19,7 @@ export class GatewayLifeObserver implements LifeCycleObserver {
     // inject `app` if you need access to other artifacts by `await this.app.get()`
     @inject(CoreBindings.APPLICATION_INSTANCE) private app: Application,
     @inject(ServiceBindings.GATEWAY_SERVICE) private gatewayService: GatewayServiceI,
+    @inject(UtilityBindings.SIMULATOR_UTILITY) private simulatoreUtility: SimulatorUtilityI,
   ) {}
 
   async boot(): Promise<void> {
@@ -31,7 +33,10 @@ export class GatewayLifeObserver implements LifeCycleObserver {
     console.log('\n\n<<<<<<<<< Gateway App Started >>>>>>>>>>>\n\n');
     let cleanup = new Cleanup();
     cleanup.init(this.cleanupOnExit);
-    this.gatewayService.initGateway();
+    await this.gatewayService.initGateway();
+    if(process.env.SIMULATE && process.env.SIMULATE.toLowerCase() === 'true'){
+      await this.simulatoreUtility.simulate({});
+    }    
   }
 
   /**

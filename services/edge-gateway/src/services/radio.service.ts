@@ -1,6 +1,5 @@
 import { RadioServiceI } from './types';
 import {bind, inject, BindingScope} from '@loopback/core';
-// import * as RADIO from 'sx127x';
 let RADIO: any;
 
 @bind({scope: BindingScope.TRANSIENT})

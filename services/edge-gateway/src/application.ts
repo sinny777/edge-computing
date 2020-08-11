@@ -1,3 +1,5 @@
+import { SimulatorUtility } from './utils/simulator';
+import { RuleServiceI } from './services/types';
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
 import {
@@ -10,8 +12,8 @@ import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import * as dotenv from "dotenv";
 import {MySequence} from './sequence';
-import { ServiceBindings } from './keys';
-import { CommonService, RadioService, GatewayService } from './services';
+import { ServiceBindings, UtilityBindings } from './keys';
+import { CommonService, RuleService, RadioService, GatewayService } from './services';
 
 export {ApplicationConfig};
 
@@ -37,8 +39,9 @@ export class EdgeGatewayApplication extends BootMixin(
     });
     this.component(RestExplorerComponent);
 
-
+    this.bind(UtilityBindings.SIMULATOR_UTILITY).toClass(SimulatorUtility);
     this.bind(ServiceBindings.COMMON_SERVICE).toClass(CommonService);
+    this.bind(ServiceBindings.RULE_SERVICE).toClass(RuleService);
     this.bind(ServiceBindings.RADIO_SERVICE).toClass(RadioService);
     this.bind(ServiceBindings.GATEWAY_SERVICE).toClass(GatewayService);
 
