@@ -14,7 +14,19 @@ export class GatewayService implements GatewayServiceI {
   
   async initGateway(): Promise<void>{
     console.log(' IN GatewayService.onStart: >>>>>> ');
+    const systemInfo = await this.getSystemInformation({});
+    if(systemInfo && systemInfo.other && systemInfo.other.internetAvailable){
+      await this.syncWithCloud();
+    }
     await this.radioService.initRadio();
+  }
+  
+  async syncWithCloud(): Promise<void> {
+    // throw new Error("Method not implemented.");
+    console.log('FETCH GATEWAY CONFIGURATIONS: >>> ');
+    console.log('FETCH CONNECTED DEVICES LIST: >>> ');
+    console.log('FETCH RULES FOR SENSORS DATA: >>> ');
+    
   }
 
   async getSystemInformation(valueObject: any): Promise<SystemInfo>{   

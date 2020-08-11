@@ -11,7 +11,8 @@ export interface RadioServiceI {
 }
 
 export interface GatewayServiceI {
-    initGateway(): void;    
+    initGateway(): void;   
+    syncWithCloud(): void;
     getSystemInformation(valueObject: any): Promise<SystemInfo> ;
 }
 
