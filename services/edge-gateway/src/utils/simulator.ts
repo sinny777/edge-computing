@@ -13,39 +13,40 @@ export class SimulatorUtility implements SimulatorUtilityI {
         @inject(ServiceBindings.RULE_SERVICE) private ruleService: RuleServiceI        
     ) { }
 
-  async simulate(config: any): Promise<void> {    
-    try{
+    async simulate(config: any): Promise<void> {    
+        try{
+                await this.createScheduler(simulateJson);
+                let rules: Array<any> = simulateJson.rules;
+                this.ruleService.addRules(rules);
+            } catch(err){
+                console.log("Error in simulate: >>>>>>> ");
+                console.log(err);
+            }
+    }
 
-            let rules: Array<any> = simulateJson.rules;
-            this.ruleService.addRules(rules);
+    async createScheduler(simulateJson: any): Promise<any> {
+        for(let device of simulateJson.devices){
+            for(const p of device.publish){
+                let s = SCHEDULE.scheduleJob(p.frequency, () => {
+                    let sensorData: any = {
+                        type: device.type,
+                        uniqueId: device.uniqueId,
+                        d: {}
+                    };
+                    for(const sensor of p.sensors){
+                        sensorData["d"][sensor.name] = this.getRandomInclusive(sensor.config);                             
+                    }; 
+                    console.log(sensorData);
+                    this.ruleService.processRules(sensorData);                         
+                });                              
+            }            
+        }        
+    }
 
-            // const schedule = new SCHEDULE;
-            let s = SCHEDULE.scheduleJob('*/5 * * * * *', () => {
-                // console.log('The answer to life, the universe, and everything!');
-                let data = this.createData(config);
-                this.ruleService.processRules(data);
-            });
-          
-        } catch(err){
-            console.log("Error in simulate: >>>>>>> ");
-            console.log(err);
-        }
-  }
-
-createData(config: any): any{
-    let sensor: any = {
-        type: 'HB_SENSOR',
-        uniqueId: 'HB_SENSOR-3C71BF4340FC',
-        hum: 0.0,
-        temp: 0.0,
-        press: 0.0,
-        alt: 0.0
-    };
-    sensor.hum = 40 + Math.floor(Math.random() * 20);
-    sensor.temp = 30 + Math.floor(Math.random() * 10);
-    sensor.press = 970 + Math.floor(Math.random() * 25);
-    sensor.alt = 300 + Math.floor(Math.random() * 15);
-    return sensor;
-  }
+    getRandomInclusive(config: any) {
+        config.min = Math.ceil(config.min);
+        config.max = Math.floor(config.max);
+        return Math.floor(Math.random() * (config.max - config.min + 1)) + config.min; //The maximum is inclusive and the minimum is inclusive 
+    }
 
 }

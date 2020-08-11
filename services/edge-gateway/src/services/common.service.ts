@@ -11,7 +11,13 @@ export class CommonService implements CommonServiceI {
     
   ) {}
 
-  async getSystemInformation(valueObject: any): Promise<SystemInfo> {    
+  async getSystemInformation(valueObject: any): Promise<SystemInfo> {   
+    if(!valueObject) {
+      valueObject = {
+        "osInfo": "platform, release",
+        "mem": "total, free, used"             
+      };
+    }
     let systemInfo: SystemInfo = await si.get(valueObject);
     systemInfo.internet = await si.inetChecksite('google.com');
     systemInfo.other = {};
