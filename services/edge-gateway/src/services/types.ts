@@ -1,4 +1,3 @@
-import { Interface } from "readline";
 import { SystemInfo } from "../models";
 
 export interface CommonServiceI {
@@ -14,4 +13,9 @@ export interface RadioServiceI {
 export interface GatewayServiceI {
     initGateway(): void;    
     getSystemInformation(valueObject: any): Promise<SystemInfo> ;
+}
+
+export interface RuleServiceI {
+    addRules(rules: Array<any>): Promise<void>;
+    processRules(data: any): Promise<void>;
 }

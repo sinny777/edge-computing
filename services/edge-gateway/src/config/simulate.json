@@ -1,0 +1,54 @@
+{
+    "rules": [
+        {
+            "conditions": {
+                "any": [
+                    {
+                        "all": [
+                            {
+                                "fact": "type",
+                                "operator": "equal",
+                                "value": "HB_SENSOR"
+                            },
+                            {
+                                "fact": "temp",
+                                "operator": "greaterThanInclusive",
+                                "value": 35
+                            },
+                            {
+                                "fact": "hum",
+                                "operator": "greaterThanInclusive",
+                                "value": 55
+                            }
+                        ]
+                    },
+                    {
+                        "all": [
+                            {
+                                "fact": "type",
+                                "operator": "equal",
+                                "value": "HB_SENSOR"
+                            },
+                            {
+                                "fact": "press",
+                                "operator": "greaterThanInclusive",
+                                "value": 965
+                            },
+                            {
+                                "fact": "alt",
+                                "operator": "greaterThanInclusive",
+                                "value": 305
+                            }
+                        ]
+                    }
+                ]
+            },
+            "event": {
+                "type": "switchOnAC",
+                "params": {
+                    "message": "Its too hot, turn on the AC!"
+                }
+            }
+        }
+    ]
+}
