@@ -144,8 +144,29 @@ sudo wget https://raw.githubusercontent.com/sinny777/edge-computing/master/scrip
 sudo sh installNrun.sh
 ```
 
+Above commands will create following folder and files structure:
+
+> edge > build > (docker-compose.yml  init-mongo.sh)
+
+## Docker Compose commands
+
+ - You can use following command to run/stop the Gateway and MongoDb containers.  Make sure you run this inside the build folder, which has docker-compose.yml file).
+
+```
+
+docker-complose up -d
+docker-compose down
+
+```
 
 ## Docker Important Commands
+
+- Check running/stopped containers
+
+```
+
+docker ps -a
+```
 
 - Remove Dangling images
 
@@ -154,6 +175,12 @@ sudo sh installNrun.sh
 docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 ```
 
+## Calling API Endpoints
+
+```
+
+curl -I -k https://iot.smartthings.com/api/devices
+```
 
 ## References
 

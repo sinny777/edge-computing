@@ -26,7 +26,6 @@ export class GatewayService implements GatewayServiceI {
     console.log('FETCH GATEWAY CONFIGURATIONS: >>> ');
     console.log('FETCH CONNECTED DEVICES LIST: >>> ');
     console.log('FETCH RULES FOR SENSORS DATA: >>> ');
-    
   }
 
   async getSystemInformation(valueObject: any): Promise<SystemInfo>{   

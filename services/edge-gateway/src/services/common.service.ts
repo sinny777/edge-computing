@@ -4,6 +4,7 @@ import * as os from 'os';
 import * as fs from 'fs';
 import { CommonServiceI } from '.';
 import { SystemInfo } from './../models/system-info.model';
+import * as simulateJson from '../config/simulate.json';
 
 @bind({scope: BindingScope.TRANSIENT})
 export class CommonService implements CommonServiceI {
@@ -50,6 +51,10 @@ export class CommonService implements CommonServiceI {
 				return '';
 			}
     }
+  }
+
+  async loadConfiguration(): Promise<any>{
+    return 
   }
 
 }
