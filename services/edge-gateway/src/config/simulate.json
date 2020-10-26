@@ -18,7 +18,13 @@
                         {"name": "alt", "config": {"min": 304, "max": 306}}
                     ]  
                 }              
-            ]      
+            ]            
+        }
+    ],
+    "transformations": [
+        {
+            "deviceType": "HB_SENSOR_V1",
+            "transformFunc": "function transform(data) {\n console.log('In Transform function: >> ', data);\n return data;\n }"
         }
     ],
     "rules": [

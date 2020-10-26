@@ -1,5 +1,7 @@
-import { RadioServiceI } from './types';
 import {bind, inject, BindingScope} from '@loopback/core';
+import { ServiceBindings } from '../keys';
+import { RadioServiceI, RuleServiceI } from './types';
+
 let RADIO: any;
 
 @bind({scope: BindingScope.TRANSIENT})
@@ -9,7 +11,9 @@ export class RadioService implements RadioServiceI {
     FREQUENCY: string = '433e6';
     private radioAvailable: boolean = false;
 
-    constructor() {
+    constructor(
+      @inject(ServiceBindings.RULE_SERVICE) private ruleService: RuleServiceI
+    ) {
         if(process.platform != 'darwin'){
             RADIO = require('edge-sx127x');
         }
@@ -32,7 +36,8 @@ export class RadioService implements RadioServiceI {
               this.radioAvailable = true;
               this.radio.on('data', (data: any, rssi: any) => {
 				        console.log('data:', '\'' + data.toString() + '\'', rssi);
-                console.log('\n\nRadio data received: ' + data.toString());                  
+                console.log('\n\nRadio data received: ' + data.toString());  
+                this.ruleService.processRules(data);                
               });
 
               // enable receive mode
