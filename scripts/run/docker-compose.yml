@@ -15,6 +15,7 @@ services:
       - DB_USERNAME=admin
       - DB_PASSWORD=1SatnamW
       - DB_NAME=admin
+      - SIMULATE=false
     ports:
       - '9000:9000'
     depends_on:
@@ -33,7 +34,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=1SatnamW    
       - MONGO_DATA_DIR=/data/db
-      - MONGO_LOG_DIR=/dev/null      
+      - MONGO_LOG_DIR=/dev/null    
     command: [--auth]
     ports:
       - '27017-27019:27017-27019'
