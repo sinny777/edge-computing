@@ -27,6 +27,25 @@
 docker build -t sinny777/edge-gateway -f ./services/edge-gateway/Dockerfile ./services/edge-gateway
 ```
 
+## BLUETOOTH
+
+```
+
+hciconfig
+
+sudo hciattach /dev/ttyAMA0 bcm43xx 921600 -
+
+sudo hciconfig hci0 reset
+
+sudo invoke-rc.d bluetooth restart
+
+/etc/init.d/bluetooth restart
+
+
+sudo hcitool -i hci0 lescan
+
+```
+
 
 ## Refrences
 
