@@ -1,22 +1,13 @@
 
-use admin
-db.createUser(
-    {
-        user: "admin",
-        pwd: "1SatnamW",
-        roles: ["root"]
-    }
-)
+mongo -- "$MONGO_INITDB_DATABASE" <<EOF
+    var authDB = '$MONGO_INITDB_DATABASE';
+    var rootUser = '$MONGO_INITDB_ROOT_USERNAME';
+    var rootPassword = '$MONGO_INITDB_ROOT_PASSWORD';
+    var admin = db.getSiblingDB(authDB);
+    admin.auth(rootUser, rootPassword);
 
-use gateway
-db.createUser(
-    {
-        user: "sinny777",
-        pwd: "1SatnamW",
-        roles: [
-            {
-                role: "readWrite"
-            }
-        ]
-    }
-)
+    db = db.getSiblingDB('$DB_NAME');
+    var user = '$DB_USER';
+    var passwd = '$DB_PASSWORD';
+    db.createUser({user: user, pwd: passwd, roles: ["readWrite"]});
+EOF

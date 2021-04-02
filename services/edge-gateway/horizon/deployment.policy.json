@@ -1,6 +1,6 @@
 {
   "label": "$SERVICE_NAME Deployment Policy",
-  "description": "A MonbgoDB service Horizon Deployment Policy",
+  "description": "Edge Gateway service Horizon Deployment Policy",
   "service": {
     "name": "$SERVICE_NAME",
     "org": "$HZN_ORG_ID",
@@ -15,7 +15,9 @@
   "properties": [
   ],
   "constraints": [
-    "model == \"Rpi4\" OR model == \"Thingamajig ULTRA\""
+    "model == \"Rpi4\"",
+    "hasRadio == true",
+    "isGateway == true"
   ],
   "userInput": [
     {
@@ -24,36 +26,32 @@
       "serviceVersionRange": "[0.0.0,INFINITY)",
       "inputs": [
         {
-          "name": "MONGO_INITDB_DATABASE",
+          "name": "DB_CONNECTOR",
+          "value": "mongodb"
+        },
+        {
+          "name": "DB_HOST",
+          "value": "mongo"
+        },
+        {
+          "name": "DB_PORT",
+          "value": "27017"
+        },
+        {
+          "name": "DB_USERNAME",
           "value": "admin"
         },
         {
-          "name": "MONGO_INITDB_ROOT_USERNAME",
-          "value": "admin"
-        },
-        {
-          "name": "MONGO_INITDB_ROOT_PASSWORD",
+          "name": "DB_PASSWORD",
           "value": "1SatnamW"
         },
         {
           "name": "DB_NAME",
-          "value": "smartthings"
+          "value": "admin"
         },
         {
-          "name": "DB_USERNAME",
-          "value": "sinny777"
-        },
-        {
-          "name": "DB_USERNAME",
-          "value": "1SatnamW"
-        },
-        {
-          "name": "MONGO_DATA_DIR",
-          "value": "/data/db"
-        },
-        {
-          "name": "MONGO_LOG_DIR",
-          "value": "/dev/null"
+          "name": "SIMULATE",
+          "value": false
         }
       ]
     }

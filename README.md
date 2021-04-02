@@ -93,6 +93,8 @@ docker buildx build \
   --push -t sinny777/myhelloworld_arm64:0.0.1 \
   --platform=linux/arm64 .
 
+docker buildx build --platform linux/arm64 -t ${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION --push .
+
 docker run --rm sinny777/myhelloworld:1.0.0
 
     - Publish service
@@ -111,6 +113,12 @@ $hzn exchange deployment addpolicy -f deployment.policy.json ${HZN_ORG_ID}/polic
 $hzn exchange deployment listpolicy ${HZN_ORG_ID}/policy-${SERVICE_NAME}_${SERVICE_VERSION}
 $hzn exchange deployment removepolicy ${HZN_ORG_ID}/policy-${SERVICE_NAME}_${SERVICE_VERSION}
 
+export HZN_ORG_ID=myorg
+export HZN_EXCHANGE_USER_AUTH=admin:<REPLACE>
+
+$hzn register --policy node.policy.json
+
+$hzn service log -f ${SERVICE_NAME}
 
 $ hzn version
 $ hzn agreement list

@@ -1,38 +1,43 @@
 {
     "org": "$HZN_ORG_ID",
     "label": "$SERVICE_NAME for $ARCH",
-    "description": "Mongo DB Service for Edge Device",
+    "description": "Our Edge Gateway Service",
     "public": true,
     "documentation": "",
     "url": "$SERVICE_NAME",
     "version": "$SERVICE_VERSION",
     "arch": "$ARCH",
     "sharable": "singleton",
-    "requiredServices": [],
+    "requiredServices": [{
+        "url": "mongo",
+        "org": "$HZN_ORG_ID",
+        "versionRange": "[0.0.0,INFINITY)",
+        "arch": "$ARCH"
+    }],
     "userInput": [
         {
-            "name": "MONGO_INITDB_DATABASE",
-            "label": "Auth Database",
+            "name": "DB_CONNECTOR",
+            "label": "DB Connector",
             "type": "string",
-            "defaultValue": "admin"
+            "defaultValue": "mongodb"
         },
         {
-            "name": "MONGO_INITDB_ROOT_USERNAME",
-            "label": "Root DB Username",
+            "name": "DB_HOST",
+            "label": "DB Host",
             "type": "string",
-            "defaultValue": "admin"
+            "defaultValue": "mongo"
         },
         {
-            "name": "MONGO_INITDB_ROOT_PASSWORD",
-            "label": "Root DB Password",
+            "name": "DB_PORT",
+            "label": "DB Port",
             "type": "string",
-            "defaultValue": "P@ssw0rd"
+            "defaultValue": "27017"
         },
         {
             "name": "DB_USERNAME",
             "label": "DB Username",
             "type": "string",
-            "defaultValue": "sinny777"
+            "defaultValue": "admin"
         },
         {
             "name": "DB_PASSWORD",
@@ -44,30 +49,24 @@
             "name": "DB_NAME",
             "label": "DB Name",
             "type": "string",
-            "defaultValue": "smartthings"
+            "defaultValue": "admin"
         },
         {
-            "name": "MONGO_DATA_DIR",
-            "label": "DB Data Directory",
-            "type": "string",
-            "defaultValue": "/data/db"
-        },
-        {
-            "name": "MONGO_LOG_DIR",
-            "label": "DB Log Directory",
-            "type": "string",
-            "defaultValue": "/dev/null"
+            "name": "SIMULATE",
+            "label": "SIMULATE",
+            "type": "boolean",
+            "defaultValue": "false"
         }
     ],
     "deployment": {
         "services": {
-            "$SERVICE_NAME": {
+            "edge-gateway": {
                 "image": "${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION",
                 "ports": [ 
-                    { "HostIP": "0.0.0.0", "HostPort": "27017:27017/tcp" }
+                    { "HostIP": "0.0.0.0" , "HostPort": "9000:9000/tcp"}
                 ],
                 "network": "host",
-                "command": ["--auth"],
+                "devices": ["/dev/mem:/dev/mem", "/sys/class/gpio:/sys/class/gpio"],
                 "privileged": true
             }
         }

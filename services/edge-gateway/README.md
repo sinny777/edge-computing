@@ -25,6 +25,20 @@
 ```
 
 docker build -t sinny777/edge-gateway -f ./services/edge-gateway/Dockerfile ./services/edge-gateway
+
+docker run --rm --name edge-gateway -p 9000:9000 \
+    -e DB_CONNECTOR=mongodb \
+    -e DB_HOST=mongo \
+    -e DB_PORT=27017 \
+    -e DB_USERNAME=admin \
+    -e DB_PASSWORD=1SatnamW \
+    -e DB_NAME=admin \
+    -e SIMULATE=false \
+    -v /dev/mem:/dev/mem \
+    -v /sys/class/gpio:/sys/class/gpio \
+    --privileged \
+    sinny777/edge-gateway_arm64:0.0.1
+    
 ```
 
 ## BLUETOOTH

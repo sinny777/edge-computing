@@ -20,8 +20,13 @@ docker buildx build \
   --push -t sinny777/mongo_arm64:0.0.1 \
   --platform=linux/arm64 .
 
-docker run --rm sinny777/myhelloworld:1.0.0
-docker run -d --rm --name mongodb -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=1SatnamW sinny777/mongo_arm64:0.0.1
+docker run --rm -d --name mongo -p 27017:27017 \
+-e MONGO_INITDB_ROOT_USERNAME=admin \
+-e MONGO_INITDB_ROOT_PASSWORD=1SatnamW \
+-e DB_USERNAME=sinny777 \
+-e DB_PASSWORD=1SatnamW \
+-e DB_NAME="smartthings" \
+sinny777/mongo_arm64:0.0.1
 
 $ eval $(hzn util configconv -f horizon/hzn.json)
 $ export ARCH=$(hzn architecture)
