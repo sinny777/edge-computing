@@ -1,0 +1,7 @@
+{
+  "properties": [
+    { "name": "model", "value": "Rpi4" }
+  ],
+  "constraints": [
+  ]
+}

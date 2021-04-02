@@ -4,6 +4,124 @@
 
 This repository is based on generic architecture for Edge Computing, which includes both working on the Edge Devices and also on the Edge Server.
 
+## OPEN HORIZON 
+
+### EDGE MANAMENT HUB
+
+#### Installation
+
+    - https://github.com/open-horizon/devops/blob/master/mgmt-hub/README.md
+
+$ export HZN_LISTEN_IP=0.0.0.0
+
+
+### EDGE AGENT
+
+#### Installing Agent on Raspberry Pi
+
+    - References: 
+        - https://github.com/open-horizon/anax/tree/master/agent-install
+        - https://github.com/open-horizon/anax/releases
+
+$ sudo -s
+$ nano agent-install.cfg
+
+HZN_EXCHANGE_URL="https://<ICP_IP>:8443/ec-exchange/v1/"
+HZN_FSS_CSSURL="https://<ICP_IP>:8443/ec-css/"
+HZN_ORG_ID="<your_ICP_cluster>"
+CERTIFICATE="/etc/horizon/agent-install.crt"
+HZN_EXCHANGE_USER_AUTH="iamapikey:<api key>"
+
+    - Check OS / Distribution details
+
+$ cat /etc/os-release
+$ uname -a
+
+$ which bash
+$ file /bin/bash
+
+    - fetch https://github.com/open-horizon/anax/releases installation files as per the distribution
+
+$ wget https://github.com/open-horizon/anax/releases/download/v2.28.0-338/agent-install.sh 
+$ wget https://github.com/open-horizon/anax/releases/download/v2.28.0-338/horizon-agent-linux-deb-arm64.tar.gz
+$ tar -xvzf horizon-agent-linux-deb-arm64.tar.gz 
+
+curl -sSL http://192.168.1.7:9443/api/v1/objects/IBM/agent_files/agent-install.crt -u "myorg/admin:HI3GCD0zTvEiWDYNmm4rNE6keNzA7t" --insecure -o "agent-install.crt"
+
+$ export HZN_EXCHANGE_USER_AUTH=admin:<REPLACE_WITH_USER_ORG_ADMIN_PASSWORD>
+
+$ export HZN_EXCHANGE_NODE_AUTH="Gurvinders-MacBook-Pro:#1WaheguruJi"
+
+$ sudo -s ./agent-install.sh -i . -u $HZN_EXCHANGE_USER_AUTH -p IBM/pattern-ibm.helloworld -w ibm.helloworld -o IBM -z horizon-agent-linux-deb-arm64.tar.gz
+
+- Below command worked :
+
+$ sudo bash ./agent-install.sh -i . -u $HZN_EXCHANGE_USER_AUTH 
+
+### SOME IMPORTANT HZN COMMANDS AND STEPS
+
+    - Steps to follow on Agent after installation
+
+$ source agent-install.cfg
+    OR
+$ eval export $(cat agent-install.cfg)
+
+export DOCKER_HUB_ID="<dockerhubid>"
+echo "#1WaheguruJi" | docker login -u $DOCKER_HUB_ID --password-stdin
+
+$ hzn key create "myorg" "sinny777@gmail.com"
+
+    - Check below before proceeding
+```
+
+echo "HZN_ORG_ID=$HZN_ORG_ID, HZN_EXCHANGE_USER_AUTH=$HZN_EXCHANGE_USER_AUTH, DOCKER_HUB_ID=$DOCKER_HUB_ID"
+which git jq
+ls ~/.hzn/keys/service.private.key ~/.hzn/keys/service.public.pem
+cat /etc/default/horizon
+
+```
+
+docker buildx create --name remote --use
+
+docker buildx create --name remote --append ssh://ubuntu@192.168.1.6
+
+docker buildx build \
+  --push -t sinny777/myhelloworld:0.0.1 \
+  --platform=linux/amd64,linux/arm64 .
+
+docker buildx build \
+  --push -t sinny777/myhelloworld_arm64:0.0.1 \
+  --platform=linux/arm64 .
+
+docker run --rm sinny777/myhelloworld:1.0.0
+
+    - Publish service
+
+eval $(hzn util configconv -f horizon/hzn.json)
+export ARCH=$(hzn architecture)
+    
+$hzn exchange service publish -f horizon/service.definition.json -P
+$hzn exchange service list
+
+$hzn exchange service addpolicy -f service.policy.json ${HZN_ORG_ID}/${SERVICE_NAME}_${SERVICE_VERSION}_${ARCH}
+$hzn exchange service listpolicy ${HZN_ORG_ID}/${SERVICE_NAME}_${SERVICE_VERSION}_${ARCH}
+$hzn exchange service removepolicy ${HZN_ORG_ID}/${SERVICE_NAME}_${SERVICE_VERSION}_${ARCH}
+
+$hzn exchange deployment addpolicy -f deployment.policy.json ${HZN_ORG_ID}/policy-${SERVICE_NAME}_${SERVICE_VERSION}
+$hzn exchange deployment listpolicy ${HZN_ORG_ID}/policy-${SERVICE_NAME}_${SERVICE_VERSION}
+$hzn exchange deployment removepolicy ${HZN_ORG_ID}/policy-${SERVICE_NAME}_${SERVICE_VERSION}
+
+
+$ hzn version
+$ hzn agreement list
+$ hzn node list -v
+$ hzn exchange user list
+
+hzn --help
+hzn node --help
+hzn exchange pattern --help
+
+
 ## Edge Gateway
 
 ### Installation
@@ -180,10 +298,17 @@ docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 ```
 
 curl -I -k https://iot.smartthings.com/api/devices
+
 ```
+
+## COME IMPORTANT COMMANDS
+
+   $ arp -an
+
 
 ## References
 
+- [IBM Open Horizon Tutorial](https://www.ibm.com/support/knowledgecenter/pl/SSFKVV_4.0/devices/developing/quickstart_example.html)
 - [IBM Edge Application Manager](https://www.ibm.com/cloud/edge-application-manager)
 - [Edge Computing Architecture](https://www.ibm.com/cloud/architecture/architectures/edge-computing)
 - [Edge Computing Reference Architecture](https://www.ibm.com/cloud/architecture/architectures/edge-computing/reference-architecture)

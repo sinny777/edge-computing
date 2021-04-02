@@ -1,0 +1,12 @@
+{
+    "properties": [
+      { "name": "model", "value": "Rpi4" },
+      { "name": "serial", "value": 9123456 },
+      { "name": "hasCamera", "value": false },
+      { "name": "isGateway", "value": true },
+      { "name": "openhorizon.allowPrivileged", "value": true}
+    ],
+    "constraints": [
+    ]
+  }
+  

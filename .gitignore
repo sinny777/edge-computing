@@ -39,3 +39,4 @@ lib
 # credentials
 credentials.json
 data/botkit
+secrets.txt
