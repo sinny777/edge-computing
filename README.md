@@ -317,6 +317,7 @@ curl -I -k https://iot.smartthings.com/api/devices
 ## References
 
 - [IBM Open Horizon Tutorial](https://www.ibm.com/support/knowledgecenter/pl/SSFKVV_4.0/devices/developing/quickstart_example.html)
+- [Open Horizon Documentation](https://github.com/open-horizon/anax/tree/master/docs)
 - [IBM Edge Application Manager](https://www.ibm.com/cloud/edge-application-manager)
 - [Edge Computing Architecture](https://www.ibm.com/cloud/architecture/architectures/edge-computing)
 - [Edge Computing Reference Architecture](https://www.ibm.com/cloud/architecture/architectures/edge-computing/reference-architecture)
