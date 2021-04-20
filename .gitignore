@@ -41,4 +41,4 @@ credentials.json
 data/botkit
 secrets.txt
 frame.jpg
-**/models/
+**/model/
