@@ -1,5 +1,4 @@
 const NodeWebcam = require( "node-webcam" );
-const PiCamera = require('pi-camera');
 const path = require('path');
 
 const webcam_opts = {
@@ -21,10 +20,10 @@ exports.captureFrame = function() {
 
     return new Promise((resolve, reject) => {
         try {
-          
           const Webcam = NodeWebcam.create( webcam_opts );
-          imageDirPath = path.join(__dirname, process.env.DATA_DIR);
-          const imgPath = path.join(imageDirPath, 'frame.jpg');
+          // imageDirPath = path.join(__dirname, process.env.DATA_DIR);
+          const imgPath = path.join(process.env.DATA_DIR, 'frame.jpg');
+          // console.log('imgPath: >>', imgPath);
           Webcam.capture( imgPath, async function( err, img ) {
             if(err){
               return reject(err);
