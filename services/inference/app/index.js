@@ -27,12 +27,8 @@ app = express();
 const readImage = path => {
   const imageBuffer = fs.readFileSync(path);
   const tfimage = tfnode.node.decodeImage(imageBuffer);
-  // const processedImg =  tf.tidy(() => tfimage.expandDims(0).toFloat().div(127).sub(1));
-  // const processedImg =  tf.tidy(() => tfimage.expandDims(0).toFloat());
   const processedImg =  tf.tidy(() => tfimage.expandDims(0).toFloat().div(224).sub(1));
-  // processedImg = tf.convert_to_tensor(processedImg[:,:,:3])
-  // processedImg = processedImg.reshape(None, 224, 224, 3);
-  // img.dispose();
+  // imageBuffer.dispose();
   return processedImg;
 }
 
@@ -54,14 +50,14 @@ async function predict(model, imagePath){
 
 async function predictCamImg(model){
   // console.log(tf.getBackend());
-  const interval = setInterval(async function() {
+  // const interval = setInterval(async function() {
     let image;
     if(!camera){
       console.log('Loading Camera...');
       if(os.platform == 'darwin'){
-        camera = require('./webcam.js');
+        camera = require('./handlers/webcam.js');
       }else{
-        camera = require('./picam.js');
+        camera = require('./handlers/picam.js');
       }
     }
 
@@ -71,7 +67,7 @@ async function predictCamImg(model){
       result = await predict(model, image);
       console.log(result);
     }
-  }, 1000); 
+  // }, 1000); 
 //  clearInterval(interval); // thanks @Luca D'Amico  
 }
 
@@ -117,33 +113,22 @@ async function init() {
        objectDetectionModel = await tf.node.loadSavedModel(MODEL_PATH, ['serve'], 'serving_default');
       //  objectDetectionModelInfo = await tf.node.getMetaGraphsFromSavedModel(path);
     }
-    // await testPrediction(objectDetectionModel);
-    await predictCamImg(objectDetectionModel);   
+        
+    var task = cron.schedule('*/2 * * * * *', async () =>  {
+      await predictCamImg(objectDetectionModel);
+      // await testPrediction(objectDetectionModel);   
+    });    
+    // task.stop();
+
   } catch (e) {
     console.log(e);    
   }
   
 }
 
-// function shutdown(retcode){
-//   setTimeout(function(){
-//     console.log("process kill");
-//     process.exit(retcode);
-//     process.kill(process.pid, -9);
-//   }, 10000);
-// }
-
-// process.on('SIGTERM', function() {
-//   console.log('Shutdown received.');
-//   shutdown(0);
-// });
-// process.on('SIGINT', function() {
-//   console.log('Shutdown received.');
-//   shutdown(0);
-// });
-
 // Initialize the application.
 init();
 // test();
+app.listen(3000);
 
 
