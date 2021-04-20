@@ -1,8 +1,0 @@
-{
-    "properties": [
-    ],
-    "constraints": [
-      "model == \"Rpi4\" OR model == \"Thingamajig ULTRA\""
-    ]
-  }
-  
