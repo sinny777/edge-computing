@@ -1,0 +1,59 @@
+{
+  "label": "$SERVICE_NAME Deployment Policy",
+  "description": "Edge Gateway service Horizon Deployment Policy",
+  "service": {
+    "name": "$SERVICE_NAME",
+    "org": "$HZN_ORG_ID",
+    "arch": "*",
+    "serviceVersions": [
+      {
+        "version": "$SERVICE_VERSION",
+        "priority":{}
+      }
+    ]
+  },
+  "properties": [
+  ],
+  "constraints": [
+    "model == \"Rpi4\"",
+    "hasRadio == true",
+    "isGateway == true"
+  ],
+  "userInput": [
+    {
+      "serviceOrgid": "$HZN_ORG_ID",
+      "serviceUrl": "$SERVICE_NAME",
+      "serviceVersionRange": "[0.0.0,INFINITY)",
+      "inputs": [
+        {
+          "name": "DB_CONNECTOR",
+          "value": "mongodb"
+        },
+        {
+          "name": "DB_HOST",
+          "value": "mongo"
+        },
+        {
+          "name": "DB_PORT",
+          "value": "27017"
+        },
+        {
+          "name": "DB_USERNAME",
+          "value": "admin"
+        },
+        {
+          "name": "DB_PASSWORD",
+          "value": "1SatnamW"
+        },
+        {
+          "name": "DB_NAME",
+          "value": "admin"
+        },
+        {
+          "name": "SIMULATE",
+          "value": false
+        }
+      ]
+    }
+  ]
+}

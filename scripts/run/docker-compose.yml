@@ -1,0 +1,47 @@
+version: '3'
+
+services:
+  edge-gateway:
+    image: sinny777/edge-gateway:edge
+    # build:
+    #   context: ./services/edge-gateway
+    container_name: 'edge-gateway'
+    privileged: true
+    restart: on-failure
+    environment:
+      - DB_CONNECTOR=mongodb
+      - DB_HOST=mongo
+      - DB_PORT=27017
+      - DB_USERNAME=admin
+      - DB_PASSWORD=1SatnamW
+      - DB_NAME=admin
+      - SIMULATE=false
+    ports:
+      - '9000:9000'
+    depends_on:
+      - mongodb
+    links:
+      - "mongodb:mongo"
+    devices: 
+      - /dev/mem:/dev/mem    
+  mongodb:
+    image: mongo:4.4.0
+    container_name: mongodb
+    privileged: true
+    restart: on-failure
+    environment:
+      - MONGO_INITDB_DATABASE=admin
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=1SatnamW    
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null    
+    command: [--auth]
+    ports:
+      - '27017-27019:27017-27019'
+    volumes:
+      - ./data/db:/data/db
+      - ./init-mongo.sh:/docker-entrypoinht-initdb.d/init-mongo.sh:ro
+
+
+
+  

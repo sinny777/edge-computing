@@ -1,0 +1,8 @@
+{
+    "HZN_ORG_ID": "myorg",
+    "MetadataVars": {
+        "DOCKER_IMAGE_BASE": "sinny777/mongo",
+        "SERVICE_NAME": "mongo",
+        "SERVICE_VERSION": "0.0.1"
+    }
+}
