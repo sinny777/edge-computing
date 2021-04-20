@@ -1,6 +1,8 @@
 // import * as tf from '@tensorflow/tfjs';
 // import * as tfd from '@tensorflow/tfjs-data';
 // import {VideoCapture} from 'camera-capture'
+// const { test_util } = require('@tensorflow/tfjs-node');
+// const util = require('util');
 
 const cron = require('node-cron');
 const express = require('express');
@@ -14,10 +16,6 @@ const dotenv = require('dotenv');
 const os = require('os');
 
 let camera;
-
-
-// const { test_util } = require('@tensorflow/tfjs-node');
-// const util = require('util');
 
 dotenv.config();
 
