@@ -1,0 +1,27 @@
+# Python packages required for classify_picamera.py
+# setuptools
+# openpyxl
+# numpy
+# pandas
+# picamera
+# Pillow
+
+setuptools
+openpyxl
+nibabel
+pydicom
+matplotlib
+pillow
+med2image
+pandas
+xlsxwriter
+numpy
+pandas
+boto
+boto3
+botocore
+oauth2client
+urllib3
+httplib2
+apiclient
+picamera
