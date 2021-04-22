@@ -9,22 +9,32 @@ const dotenv = require('dotenv');
 Classify = require('./handlers/classify.js');
 
 dotenv.config();
+app = express();
+const classify = new Classify();
 
 async function init() {
   try {
-    const classify = new Classify();
     await classify.loadModel();
-    await classify.startDetection();   
+    await classify.startDetection();    
   } catch (e) {
     console.log(e);    
   }  
 }
 
-app = express();
+app.get('/detect', async function (req, res) {
+  await classify.startDetection();
+  res.send('Detection of Events Started..');
+});
+
+app.get('/stop', async function (req, res) {
+  await classify.stopDetection();
+  res.send('Detection of Events Stopped..');
+});
 
 init();
 
 // test();
-app.listen(3000);
+app.listen(3001);
+console.log('APP Listneing on port 3001');
 
 

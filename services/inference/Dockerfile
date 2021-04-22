@@ -18,21 +18,28 @@ RUN apt-get update && \
 RUN mkdir -p /app
 WORKDIR /app
 
-ADD ./ /app
+ADD ./app /app
 
 # RUN npm config set registry http://registry.npmjs.org
 RUN npm install -g node-gyp
 RUN npm install -g node-pre-gyp
-# RUN npm i -g @loopback/build@6.1.1
+
+RUN npm install @tensorflow/tfjs-node@2.6.0 && \
+    cd node_modules/@tensorflow/tfjs-node && \
+    echo '{' >> 'custom-binary.json' && \
+    echo '"tf-lib": "https://s3.us.cloud-object-storage.appdomain.cloud/tfjs-cos/libtensorflow-cpu-linux-arm-1.15.0.tar.gz"'  >> 'custom-binary.json' && \
+    echo '}' >> 'custom-binary.json' && \
+    # node-gyp configure --verbose && \
+    npm rebuild @tensorflow/tfjs-node --build-from-source && \
+    npm install
 
 # RUN JOBS=MAX npm i --unsafe-perm --production
 # RUN npm i edge-sx127x --save --unsafe-perm --production
-RUN JOBS=MAX npm ci 
-RUN npm i edge-sx127x
-RUN npm run build
+# RUN JOBS=MAX npm ci 
+# RUN npm run build
 
 # Bind to all network interfaces so that it can be mapped to the host OS
-ENV HOST=0.0.0.0 PORT=9001
+ENV HOST=0.0.0.0 PORT=3001
 
 EXPOSE ${PORT}
 

@@ -1,7 +1,8 @@
 
 const tf = require('@tensorflow/tfjs-node');
+// const tf = require('@tensorflow/tfjs');
 // import * as tfd from '@tensorflow/tfjs-data';
-const tfnode = require('@tensorflow/tfjs-node');
+// const tfnode = require('@tensorflow/tfjs-node');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
@@ -16,6 +17,7 @@ class Classify {
     predictionCount = 0;
     notification;
     task;
+    detecting = false;
 
     alertConfig = {
         label: 'Fire',
@@ -35,6 +37,7 @@ class Classify {
           if (!this.model) {
              this.model = await tf.node.loadSavedModel(MODEL_PATH, ['serve'], 'serving_default');
             //  objectDetectionModelInfo = await tf.node.getMetaGraphsFromSavedModel(path);
+            console.log('AI Model Loaded...');
           }
         } catch (e) {
           console.log(e);    
@@ -44,7 +47,7 @@ class Classify {
     readImage = async function(imagePath){
         // console.log('In readImage, imagePath: ', imagePath);
         const imageBuffer = fs.readFileSync(imagePath);
-        const tfimage = tfnode.node.decodeImage(imageBuffer);
+        const tfimage = tf.node.decodeImage(imageBuffer);
         const processedImg =  tf.tidy(() => tfimage.expandDims(0).toFloat().div(224).sub(1));
         // imageBuffer.dispose();
         return processedImg;
@@ -105,15 +108,22 @@ class Classify {
     }
 
     startDetection = async function(){
-         this.task = cron.schedule('*/5 * * * * *', async () =>  {
-            await this.predictFrame();
-            // await testPrediction(objectDetectionModel);   
-        });    
-          // task.stop();
+      if(!this.detecting){
+        this.task = cron.schedule('*/5 * * * * *', async () =>  {
+          await this.predictFrame();
+          // await testPrediction(objectDetectionModel);
+          console.log('Event Detection Started...');  
+          this.detecting = true;
+        });
+      }else{
+        console.log('Event Already detecting...');
+      }         
     }
 
     stopDetection = async function(){
        this.task.stop();
+       console.log('Event Detection Stopped...');
+       this.detecting = false;
     }
 
     testPrediction = async function (){
