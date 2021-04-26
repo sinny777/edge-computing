@@ -22,7 +22,8 @@ exports.captureFrame = function() {
         try {
           const Webcam = NodeWebcam.create( webcam_opts );
           // imageDirPath = path.join(__dirname, process.env.DATA_DIR);
-          const imgPath = path.join(process.env.DATA_DIR, 'frame.jpg');
+          const imgPath = path.join(__dirname, 'frame.jpg');
+          // const imgPath = path.join(process.env.DATA_DIR, 'frame.jpg');
           Webcam.capture( imgPath, async function( err, img ) {
             if(err){
               console.error(err);

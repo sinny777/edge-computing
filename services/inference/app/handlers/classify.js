@@ -9,24 +9,23 @@ const os = require('os');
 const cron = require('node-cron');
 const Notification = require('./notification.js'); 
 
-class Classify {
 
-    model;
-    labels;
-    camera;
-    predictionCount = 0;
-    notification;
-    task;
-    detecting = false;
-
-    alertConfig = {
-        label: 'Fire',
-        frequency: 2
-    }
+let Classify = class {
 
     constructor() {
         // this.loadModel();
-        this.notification = new Notification();
+        this.notification = new Notification();  
+        this.model;
+        this.labels;
+        this.camera;
+        this.predictionCount = 0;
+        this.notification;
+        this.task;
+        this.detecting = false; 
+        this.alertConfig = {
+            label: 'Fire',
+            frequency: 3
+        };   
     }
 
     loadModel = async function() {
@@ -45,7 +44,7 @@ class Classify {
     }
 
     readImage = async function(imagePath){
-        // console.log('In readImage, imagePath: ', imagePath);
+        console.log('In readImage, imagePath: ', imagePath);
         const imageBuffer = fs.readFileSync(imagePath);
         const tfimage = tf.node.decodeImage(imageBuffer);
         const processedImg =  tf.tidy(() => tfimage.expandDims(0).toFloat().div(224).sub(1));
@@ -87,7 +86,7 @@ class Classify {
 
     predictFrame = async function (){
         // console.log(tf.getBackend());
-        // const interval = setInterval(async function() {
+        try{
           if(!this.camera){
             if(os.platform() == 'darwin'){
                 this.camera = require('./webcam.js');                
@@ -97,14 +96,16 @@ class Classify {
           }
       
           const imagePath = await this.camera.captureFrame();
+          // const imagePath = './assets/images/fireNSmoke1.jpeg';
           
           if(imagePath){
-            result = await this.predict(imagePath);
+            const result = await this.predict(imagePath);
             console.log('RESULT: >> ', result);
             return result;
           }
-        // }, 1000); 
-      //  clearInterval(interval); // thanks @Luca D'Amico  
+        }catch(error){
+          console.error(error);
+        }       
     }
 
     startDetection = async function(){
@@ -161,3 +162,4 @@ class Classify {
 }
 
 module.exports = Classify;
+

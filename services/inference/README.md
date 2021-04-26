@@ -16,17 +16,19 @@ sudo docker buildx build \
   --push -t sinny777/inference:0.0.1 \
   --platform=linux/amd64,linux/arm64 .
 
-docker run --rm -d --name inference -p 3001:3001 \
--e DATA_DIR=/temp \
--e LABELS=Default,Fire \
--e EMAIL_USER=sinny777 \
--e EMAIL_PASSWORD=1SatnamW \
-sinny777/inference_arm64:0.0.1
-
-sudo docker run --rm -it --name inference \
+sudo docker run -it --name inference \
+--privileged \
 -p 3001:3001 --env-file .env \
---mount source=/home/ubuntu/edge/services/inference,destination=/usr/share
+--mount type=bind,source="$(pwd)",target=/ \
+sinny777/inference:0.0.1 /bin/bash
+
+docker run -it --name inference \
+-p 3001:3001 --env-file .env \
+-v /opt/vc/bin:/opt/vc/bin --device /dev/vchiq \
+--mount type=bind,source=/home/ubuntu,target=/home/ubuntu \
+--privileged \
 sinny777/inference:0.0.1
+
 
 $ eval $(hzn util configconv -f horizon/hzn.json)
 $ export ARCH=$(hzn architecture)
@@ -37,3 +39,12 @@ TFJS_NODE_CDN_STORAGE="https://storage.googleapis.com/" npm install @tensorflow/
 https://s3.us.cloud-object-storage.appdomain.cloud/tfjs-cos/libtensorflow-cpu-linux-arm-1.7.4.tar.gz
 
 node-pre-gyp install --build-from-source
+
+https://www.tensorflow.org/lite/guide/build_arm
+
+
+npm install -g @bazel/bazelisk
+
+bazel build --config=opt --config=monolithic //tensorflow/tools/lib_package:libtensorflow
+
+=> https://qengineering.eu/install-ubuntu-18.04-on-raspberry-pi-4.html

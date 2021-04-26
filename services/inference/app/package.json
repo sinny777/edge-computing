@@ -4,9 +4,8 @@
     "description": "Tensorflow Inference application for Events Detection",
     "main": "index.js",
     "engines": {
-        "node": ">=12.0.0"
+        "node": ">=12.22.1"
     },
-    "type": "module",
     "scripts": {
         "watch": "cross-env NODE_ENV=development parcel index.html --no-hmr --open",
         "build": "cross-env NODE_ENV=production parcel build index.html --no-minify --public-url ./",
@@ -22,6 +21,7 @@
         "express": "^4.17.1",
         "node-cron": "^3.0.0",
         "node-webcam": "^0.8.0",
+        "nodemailer": "^6.5.0",
         "pi-camera": "^1.5.0"
     },
     "devDependencies": {
