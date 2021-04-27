@@ -1,14 +1,10 @@
 
 const tf = require('@tensorflow/tfjs-node');
-// const tf = require('@tensorflow/tfjs');
-// import * as tfd from '@tensorflow/tfjs-data';
-// const tfnode = require('@tensorflow/tfjs-node');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const cron = require('node-cron');
 const Notification = require('./notification.js'); 
-
 
 let Classify = class {
 
@@ -44,7 +40,7 @@ let Classify = class {
     }
 
     readImage = async function(imagePath){
-        console.log('In readImage, imagePath: ', imagePath);
+        // console.log('In readImage, imagePath: ', imagePath);
         const imageBuffer = fs.readFileSync(imagePath);
         const tfimage = tf.node.decodeImage(imageBuffer);
         const processedImg =  tf.tidy(() => tfimage.expandDims(0).toFloat().div(224).sub(1));
@@ -75,7 +71,7 @@ let Classify = class {
         if(result.class == this.alertConfig.label){    
             this.predictionCount = this.predictionCount + 1;
             if(this.predictionCount > this.alertConfig.frequency){
-                console.log('SEND ALERT FOR ', this.labels[0]);
+                console.log('\n\nSEND ALERT FOR ', this.labels[0], '\n\n');
                 this.notification.sendEmail(result)
                 this.predictionCount = 0;
             } 
@@ -87,17 +83,16 @@ let Classify = class {
     predictFrame = async function (){
         // console.log(tf.getBackend());
         try{
-          if(!this.camera){
-            if(os.platform() == 'darwin'){
-                this.camera = require('./webcam.js');                
-            }else{
-                this.camera = require('./picam.js');                
-            }
-          }
-      
+          // if(!this.camera){
+          //   if(os.platform() == 'darwin'){
+          //       this.camera = require('./webcam.js');                
+          //   }else{
+          //       this.camera = require('./picam.js');                               
+          //   }
+          // }
+          this.camera = require('./webcam.js');       
           const imagePath = await this.camera.captureFrame();
-          // const imagePath = './assets/images/fireNSmoke1.jpeg';
-          
+          // const imagePath = './assets/images/fireNSmoke1.jpeg';          
           if(imagePath){
             const result = await this.predict(imagePath);
             console.log('RESULT: >> ', result);

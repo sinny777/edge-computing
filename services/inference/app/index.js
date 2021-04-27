@@ -1,8 +1,3 @@
-// import * as tf from '@tensorflow/tfjs';
-// import * as tfd from '@tensorflow/tfjs-data';
-// import {VideoCapture} from 'camera-capture'
-// const { test_util } = require('@tensorflow/tfjs-node');
-// const util = require('util');
 
 const express = require('express');
 const dotenv = require('dotenv');

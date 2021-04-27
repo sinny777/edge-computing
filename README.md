@@ -323,4 +323,5 @@ curl -I -k https://iot.smartthings.com/api/devices
 - [Edge Computing Reference Architecture](https://www.ibm.com/cloud/architecture/architectures/edge-computing/reference-architecture)
 - [Red Hat Edge Computing](https://www.redhat.com/en/topics/edge-computing/why-choose-red-hat-edge-computing)
 - [IoT Architectures Code Patterns](https://www.ibm.com/cloud/architecture/architectures/iotArchitecture/code-patterns)
+- [Ubuntu + Tensorflow + RaspberryPi 4](https://qengineering.eu/install-ubuntu-18.04-on-raspberry-pi-4.html)
 

@@ -1,6 +1,4 @@
 
-docker run -d --name mongodb -p 3001:3001 inference
-
 ## Steps to publish service on horizon hub
 
 docker buildx ls
@@ -38,13 +36,9 @@ $ hzn exchange service publish -f horizon/service.definition.json
 TFJS_NODE_CDN_STORAGE="https://storage.googleapis.com/" npm install @tensorflow/tfjs-node-gpu
 https://s3.us.cloud-object-storage.appdomain.cloud/tfjs-cos/libtensorflow-cpu-linux-arm-1.7.4.tar.gz
 
-node-pre-gyp install --build-from-source
 
-https://www.tensorflow.org/lite/guide/build_arm
+## References
 
-
-npm install -g @bazel/bazelisk
-
-bazel build --config=opt --config=monolithic //tensorflow/tools/lib_package:libtensorflow
-
-=> https://qengineering.eu/install-ubuntu-18.04-on-raspberry-pi-4.html
+- [Ubuntu + Tensorflow + RaspberryPi 4](https://qengineering.eu/install-ubuntu-18.04-on-raspberry-pi-4.html)
+- [Running AI in NodeJS](https://developer.ibm.com/technologies/artificial-intelligence/tutorials/environments-for-running-ai-in-nodejs/)
+- [Build for ARM](https://www.tensorflow.org/lite/guide/build_arm)
