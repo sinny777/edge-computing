@@ -26,11 +26,11 @@ $ export HZN_LISTEN_IP=0.0.0.0
 $ sudo -s
 $ nano agent-install.cfg
 
-HZN_EXCHANGE_URL="https://<ICP_IP>:8443/ec-exchange/v1/"
-HZN_FSS_CSSURL="https://<ICP_IP>:8443/ec-css/"
-HZN_ORG_ID="<your_ICP_cluster>"
-CERTIFICATE="/etc/horizon/agent-install.crt"
-HZN_EXCHANGE_USER_AUTH="iamapikey:<api key>"
+HZN_EXCHANGE_URL=http://192.168.1.14:3090/v1/
+HZN_FSS_CSSURL=http://192.168.1.14:9443/
+HZN_ORG_ID=myorg
+CERTIFICATE=agent-install.crt
+HZN_EXCHANGE_USER_AUTH=admin:HI3GCD0zTvEiWDYNmm4rNE6keNzA7t
 
     - Check OS / Distribution details
 
@@ -46,7 +46,7 @@ $ wget https://github.com/open-horizon/anax/releases/download/v2.28.0-338/agent-
 $ wget https://github.com/open-horizon/anax/releases/download/v2.28.0-338/horizon-agent-linux-deb-arm64.tar.gz
 $ tar -xvzf horizon-agent-linux-deb-arm64.tar.gz 
 
-curl -sSL http://192.168.1.7:9443/api/v1/objects/IBM/agent_files/agent-install.crt -u "myorg/admin:HI3GCD0zTvEiWDYNmm4rNE6keNzA7t" --insecure -o "agent-install.crt"
+curl -sSL http://192.168.1.14:9443/api/v1/objects/IBM/agent_files/agent-install.crt -u "myorg/admin:HI3GCD0zTvEiWDYNmm4rNE6keNzA7t" --insecure -o "agent-install.crt"
 
 $ export HZN_EXCHANGE_USER_AUTH=admin:<REPLACE_WITH_USER_ORG_ADMIN_PASSWORD>
 
@@ -67,7 +67,7 @@ $ source agent-install.cfg
 $ eval export $(cat agent-install.cfg)
 
 export DOCKER_HUB_ID="<dockerhubid>"
-echo "#1WaheguruJi" | docker login -u $DOCKER_HUB_ID --password-stdin
+echo "P@ssw0rd" | docker login -u $DOCKER_HUB_ID --password-stdin
 
 $ hzn key create "myorg" "sinny777@gmail.com"
 
@@ -116,7 +116,7 @@ $hzn exchange deployment removepolicy ${HZN_ORG_ID}/policy-${SERVICE_NAME}_${SER
 export HZN_ORG_ID=myorg
 export HZN_EXCHANGE_USER_AUTH=admin:<REPLACE>
 
-$hzn register --policy node.policy.json
+$ hzn register --policy node.policy.json
 
 $hzn service log -f ${SERVICE_NAME}
 

@@ -12,20 +12,24 @@ docker buildx inspect --bootstrap
 
 sudo docker buildx build \
   --push -t sinny777/inference:0.0.1 \
-  --platform=linux/amd64,linux/arm64 .
+  --platform=linux/amd64,linux/arm64,linux/arm/v7 .
+
+sudo docker buildx build \
+  --push -t sinny777/inference_arm32:0.0.1 \
+  --platform=linux/arm/v7 .
 
 sudo docker run -it --name inference \
 --privileged \
 -p 3001:3001 --env-file .env \
---mount type=bind,source="$(pwd)",target=/ \
+--mount type=bind,source="/Users/gurvindersingh/Documents/Development/data/ml/models/fire_classification",target=/tmp \
 sinny777/inference:0.0.1 /bin/bash
 
 docker run -it --name inference \
 -p 3001:3001 --env-file .env \
 -v /opt/vc/bin:/opt/vc/bin --device /dev/vchiq \
---mount type=bind,source=/home/ubuntu,target=/home/ubuntu \
+--mount type=bind,source=/home/pi,target=/home/pi \
 --privileged \
-sinny777/inference:0.0.1
+sinny777/inference_arm32:0.0.1
 
 
 $ eval $(hzn util configconv -f horizon/hzn.json)

@@ -22,7 +22,7 @@
         "node-cron": "^3.0.0",
         "node-webcam": "^0.8.0",
         "nodemailer": "^6.5.0",
-        "pi-camera": "^1.5.0"
+        "pi-camera-connect": "^0.3.4"
     },
     "devDependencies": {
         "babel-core": "^6.26.3",

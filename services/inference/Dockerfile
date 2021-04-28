@@ -1,6 +1,7 @@
 # FROM alpine:latest
 # FROM node:12-buster-slim
 FROM ubuntu:18.04
+# FROM balenalib/rpi-raspbian
 
 LABEL author="Gurvinder Singh <sinny777@gmail.com>"
 LABEL profile="http://www.gurvinder.info"

@@ -4,13 +4,13 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const cron = require('node-cron');
-const Notification = require('./notification.js'); 
+const RuleEngine = require('./ruleEngine.js');  
 
 let Classify = class {
 
     constructor() {
         // this.loadModel();
-        this.notification = new Notification();  
+        this.ruleEngine = new RuleEngine();
         this.model;
         this.labels;
         this.camera;
@@ -27,7 +27,6 @@ let Classify = class {
     loadModel = async function() {
         try {
           this.labels = process.env.LABELS.split(',');
-        //   const data_dir = path.join(__dirname, process.env.DATA_DIR);
           const MODEL_PATH = path.join(process.env.DATA_DIR, 'model');
           if (!this.model) {
              this.model = await tf.node.loadSavedModel(MODEL_PATH, ['serve'], 'serving_default');
@@ -39,25 +38,30 @@ let Classify = class {
         }
     }
 
-    readImage = async function(imagePath){
-        // console.log('In readImage, imagePath: ', imagePath);
-        const imageBuffer = fs.readFileSync(imagePath);
+    processImage = async function(image){
+        let imageBuffer;
+        if(Buffer.isBuffer(image)){
+          imageBuffer = image;
+        }else{
+          imageBuffer = fs.readFileSync(image);
+        }
         const tfimage = tf.node.decodeImage(imageBuffer);
         const processedImg =  tf.tidy(() => tfimage.expandDims(0).toFloat().div(224).sub(1));
         // imageBuffer.dispose();
         return processedImg;
     }
 
-    predict =  async function(imagePath){
+    predict =  async function(image){
+      const imagePath = path.join('/tmp', 'frame.jpg'); 
         try{
-          const processedImg = await this.readImage(imagePath);
+          const processedImg = await this.processImage(image);
           if(processedImg && this.model){
             let outputTensor = this.model.predict(processedImg);
             // console.log(outputTensor);
             const predictedClass = await outputTensor.as1D().argMax().data();
-            const confidence = Math.round(await outputTensor.as1D().max().data() * 100, 2);   
+            const confidence = Math.round(await outputTensor.as1D().max().data() * 100, 2);  
             const result = {'imagePath': imagePath, 'class': this.labels[predictedClass[0]], 'confidence': confidence}; 
-            await this.sendAlert(result);
+            await this.ruleEngine.processEdgeRules(result);
             return result;      
           }    
         }catch(err){
@@ -66,35 +70,25 @@ let Classify = class {
         
     }
 
-    sendAlert = async function(result){
-        console.log(result);
-        if(result.class == this.alertConfig.label){    
-            this.predictionCount = this.predictionCount + 1;
-            if(this.predictionCount > this.alertConfig.frequency){
-                console.log('\n\nSEND ALERT FOR ', this.labels[0], '\n\n');
-                this.notification.sendEmail(result)
-                this.predictionCount = 0;
-            } 
-        }else{
-            this.predictionCount = 0;
-        }         
-    }
-
     predictFrame = async function (){
         // console.log(tf.getBackend());
         try{
-          // if(!this.camera){
-          //   if(os.platform() == 'darwin'){
-          //       this.camera = require('./webcam.js');                
-          //   }else{
-          //       this.camera = require('./picam.js');                               
-          //   }
-          // }
-          this.camera = require('./webcam.js');       
-          const imagePath = await this.camera.captureFrame();
-          // const imagePath = './assets/images/fireNSmoke1.jpeg';          
-          if(imagePath){
-            const result = await this.predict(imagePath);
+          if(!this.camera){
+            if(os.platform() == 'darwin' || process.env.USE_WEBCAM === "true"){
+                this.camera = require('./webcam.js');                
+            }else{
+                this.camera = require('./raspicam.js');                               
+            }
+          }
+          const image = await this.camera.getFrameBuffer();
+          if(image){
+            const imgPath = path.join('/tmp', 'frame.jpg');
+            fs.writeFile(imgPath, image, function (err, data) {
+              if (err) {
+                return console.log(err);
+              }              
+            });           
+            const result = await this.predict(image);
             console.log('RESULT: >> ', result);
             return result;
           }

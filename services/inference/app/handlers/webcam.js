@@ -10,13 +10,13 @@ const webcam_opts = {
     saveShots: true,
     output: "jpeg",
     device: false,
-    callbackReturn: "location",
+    callbackReturn: "buffer",
     verbose: false
   };
   
 var exports = module.exports = {};
 
-exports.captureFrame = function() {
+exports.getFrameBuffer = function() {
 
     return new Promise((resolve, reject) => {
         try {
@@ -24,12 +24,12 @@ exports.captureFrame = function() {
           // imageDirPath = path.join(__dirname, process.env.DATA_DIR);
           const imgPath = path.join(__dirname, 'frame.jpg');
           // const imgPath = path.join(process.env.DATA_DIR, 'frame.jpg');
-          Webcam.capture( imgPath, async function( err, img ) {
+          Webcam.capture( imgPath, async function( err, imageBuffer ) {
             if(err){
               console.error(err);
               return reject(err);
             }
-            resolve(img);        
+            resolve(imageBuffer);        
           });
         } catch (err) {
             console.error(err);

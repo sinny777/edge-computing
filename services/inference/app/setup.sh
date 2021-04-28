@@ -6,19 +6,30 @@ echo $arch
 npm install
 
 if [ ${arch} == 'aarch64' ]; then
-  # ARM 64-bit stuff here
-    echo "ARM Architecture"
+    echo "ARM 64 Bit Architecture"
     echo '{' >> 'custom-binary.json' && \
     echo '"tf-lib": "https://gurvsin3-visualrecognition.s3.jp-tok.cloud-object-storage.appdomain.cloud/libtensorflow_arm64.tar.gz"'  >> 'custom-binary.json' && \
     echo '}' >> 'custom-binary.json'
     cp custom-binary.json node_modules/@tensorflow/tfjs-node/scripts/
     chmod 755 node_modules/@tensorflow/tfjs-node/scripts/custom-binary.json
 
+elif [ ${arch} == 'armv7l' ]; then
+    echo "ARM 32 Bit Architecture"
+    # echo '{' >> 'custom-binary.json' && \
+    # echo '"tf-lib": "https://gurvsin3-visualrecognition.s3.jp-tok.cloud-object-storage.appdomain.cloud/libtensorflow_arm32.tar.gz"'  >> 'custom-binary.json' && \
+    # echo '}' >> 'custom-binary.json'
+    # cp custom-binary.json node_modules/@tensorflow/tfjs-node/scripts/
+    # chmod 755 node_modules/@tensorflow/tfjs-node/scripts/custom-binary.json
+    npm uninstall --save @tensorflow/tfjs-node
+    npm install --save @tensorflow/tfjs-node@2.6.0
+
+    echo 'SUBSYSTEM=="vchiq",MODE="0666"' >> 99-camera.rules
+    cp 99-camera.rules /etc/udev/rules.d/
+
 elif [ ${arch} == 'x86_64' ]; then
     echo "DARWIN Architecture"
 else
-  # 32-bit stuff here
-  echo "UNKONWN Architecture"
+    echo "UNKONWN Architecture"
 fi
 
 npm rebuild @tensorflow/tfjs-node --build-from-source
