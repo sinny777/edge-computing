@@ -16,7 +16,7 @@ exports.captureFrame = function() {
     return new Promise((resolve, reject) => {
         try {
             // imagePath = path.join(__dirname, process.env.DATA_DIR);
-            const imagePath = path.join('/tmp', 'frame.jpg');
+            const imgPath = path.join(process.env.DATA_DIR, 'frames', 'frame.jpg');
             stillCamera.takeImage().then(image => {
                 fs.writeFileSync(imagePath, image);
                 resolve(imagePath);

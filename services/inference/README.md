@@ -15,8 +15,12 @@ sudo docker buildx build \
   --platform=linux/amd64,linux/arm64,linux/arm/v7 .
 
 sudo docker buildx build \
-  --push -t sinny777/inference_arm32:0.0.1 \
+  --push -t sinny777/inference_arm:0.0.1 \
   --platform=linux/arm/v7 .
+
+sudo docker buildx build \
+  --push -t sinny777/inference_arm64:0.0.1 \
+  --platform=linux/arm64 .
 
 sudo docker run -it --name inference \
 --privileged \
@@ -30,6 +34,11 @@ docker run -it --name inference \
 --mount type=bind,source=/home/pi,target=/home/pi \
 --privileged \
 sinny777/inference_arm32:0.0.1
+
+export DOCKER_HUB_ID="<dockerhubid>"
+echo "P@ssw0rd" | docker login -u $DOCKER_HUB_ID --password-stdin
+
+hzn dev service new -s inference -V 0.0.1 -i $DOCKER_HUB_ID/inference --noImageGen
 
 
 $ eval $(hzn util configconv -f horizon/hzn.json)

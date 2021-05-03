@@ -74,6 +74,9 @@ $ hzn key create "myorg" "sinny777@gmail.com"
     - Check below before proceeding
 ```
 
+curl -s  http://192.168.1.14:8510/status/workers | jq
+curl -s  http://localhost:8081/status/workers | jq
+
 echo "HZN_ORG_ID=$HZN_ORG_ID, HZN_EXCHANGE_USER_AUTH=$HZN_EXCHANGE_USER_AUTH, DOCKER_HUB_ID=$DOCKER_HUB_ID"
 which git jq
 ls ~/.hzn/keys/service.private.key ~/.hzn/keys/service.public.pem
@@ -99,10 +102,12 @@ docker run --rm sinny777/myhelloworld:1.0.0
 
     - Publish service
 
+hzn dev service new -s myservice -V 1.0.0 -i $DOCKER_HUB_ID/myservice --noImageGen
+
 eval $(hzn util configconv -f horizon/hzn.json)
 export ARCH=$(hzn architecture)
     
-$hzn exchange service publish -f horizon/service.definition.json -P
+$hzn exchange service publish -f service.definition.json -P
 $hzn exchange service list
 
 $hzn exchange service addpolicy -f service.policy.json ${HZN_ORG_ID}/${SERVICE_NAME}_${SERVICE_VERSION}_${ARCH}
@@ -113,6 +118,9 @@ $hzn exchange deployment addpolicy -f deployment.policy.json ${HZN_ORG_ID}/polic
 $hzn exchange deployment listpolicy ${HZN_ORG_ID}/policy-${SERVICE_NAME}_${SERVICE_VERSION}
 $hzn exchange deployment removepolicy ${HZN_ORG_ID}/policy-${SERVICE_NAME}_${SERVICE_VERSION}
 
+
+    - Node Setup
+    
 export HZN_ORG_ID=myorg
 export HZN_EXCHANGE_USER_AUTH=admin:<REPLACE>
 

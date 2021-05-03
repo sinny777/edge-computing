@@ -21,9 +21,8 @@ exports.getFrameBuffer = function() {
     return new Promise((resolve, reject) => {
         try {
           const Webcam = NodeWebcam.create( webcam_opts );
-          // imageDirPath = path.join(__dirname, process.env.DATA_DIR);
-          const imgPath = path.join(__dirname, 'frame.jpg');
-          // const imgPath = path.join(process.env.DATA_DIR, 'frame.jpg');
+          const imgPath = path.join(process.env.DATA_DIR, 'frames', 'frame.jpg');        
+          // const imgPath = path.join('/tmp', 'frame.jpg');
           Webcam.capture( imgPath, async function( err, imageBuffer ) {
             if(err){
               console.error(err);

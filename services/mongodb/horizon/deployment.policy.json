@@ -15,7 +15,8 @@
   "properties": [
   ],
   "constraints": [
-    "model == \"Rpi4\" OR model == \"Thingamajig ULTRA\""
+    "model == \"Rpi4\" OR model == \"Thingamajig ULTRA\"",
+    "isGateway == true"
   ],
   "userInput": [
     {

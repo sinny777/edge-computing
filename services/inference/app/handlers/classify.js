@@ -60,7 +60,8 @@ let Classify = class {
             // console.log(outputTensor);
             const predictedClass = await outputTensor.as1D().argMax().data();
             const confidence = Math.round(await outputTensor.as1D().max().data() * 100, 2);  
-            const result = {'imagePath': imagePath, 'class': this.labels[predictedClass[0]], 'confidence': confidence}; 
+            const result = {'input': {'image': image}, 'output': {'class': this.labels[predictedClass[0]], 'confidence': confidence}}; 
+            // const result = {'image': image, 'class': this.labels[predictedClass[0]], 'confidence': confidence}; 
             await this.ruleEngine.processEdgeRules(result);
             return result;      
           }    
@@ -80,16 +81,11 @@ let Classify = class {
                 this.camera = require('./raspicam.js');                               
             }
           }
+
           const image = await this.camera.getFrameBuffer();
           if(image){
-            const imgPath = path.join('/tmp', 'frame.jpg');
-            fs.writeFile(imgPath, image, function (err, data) {
-              if (err) {
-                return console.log(err);
-              }              
-            });           
             const result = await this.predict(image);
-            console.log('RESULT: >> ', result);
+            console.log('RESULT: >> ', result.output);
             return result;
           }
         }catch(error){
@@ -98,6 +94,12 @@ let Classify = class {
     }
 
     startDetection = async function(){
+
+      const framesDir = path.join(process.env.DATA_DIR, 'frames');
+      if (!fs.existsSync(framesDir)){
+        fs.mkdirSync(framesDir);
+      }
+
       if(!this.detecting){
         this.task = cron.schedule('*/5 * * * * *', async () =>  {
           await this.predictFrame();

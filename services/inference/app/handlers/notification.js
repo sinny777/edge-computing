@@ -16,12 +16,18 @@ class Notification {
         // this.loadModel();
     }
 
-    sendEmail = async function(prediction) {
+    sendEmail = async function(result) {
         try {
 
-            const imagePath = prediction.imagePath;
+            if(!result || !result.output){
+              return false;
+            }
+
+            const output = result.output;
+
+            const imagePath = output.imagePath;
             const imageName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.length);
-            const html = '<h1>'+prediction.class+' event detected with ' +prediction.confidence+'% confidence.</h1>'
+            const html = '<h1>'+output.class+' event detected with ' +output.confidence+'% confidence.</h1>'
 
             const mailOptions = {
                 from: 'elonmusk@tesla.com',
