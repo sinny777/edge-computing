@@ -32,13 +32,13 @@
             "name": "EMAIL_USER",
             "label": "Mailtrap Email User",
             "type": "string",
-            "defaultValue": "d10954cd3668ef"
+            "defaultValue": "sefsfsfsfsffdsf"
         },
         {
             "name": "EMAIL_PASSWORD",
             "label": "Mailtrap Email User",
             "type": "string",
-            "defaultValue": "a659eed8435e84"
+            "defaultValue": "sfsfwfsdfds"
         },
         {
             "name": "LD_LIBRARY_PATH",
