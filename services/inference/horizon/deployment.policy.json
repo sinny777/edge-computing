@@ -31,11 +31,11 @@
         },
         {
           "name": "DATA_DIR",
-          "value": "/home/pi"
+          "value": "/usr/share"
         },
         {
           "name": "USE_WEBCAM",
-          "value": "false"
+          "value": "true"
         },
         {
           "name": "EMAIL_USER",
@@ -48,7 +48,19 @@
         {
           "name": "LD_LIBRARY_PATH",
           "value": "/opt/vc/lib"
-        }
+        },
+        {
+          "name": "ALERT_LABEL",
+          "value": "Fire"
+      },
+      {
+          "name": "ALERT_FREQUENCY",
+          "value": "2"
+      },
+      {
+          "name": "ALERT_THRESHOLD",
+          "value": "60"
+      }
       ]
     }
   ]

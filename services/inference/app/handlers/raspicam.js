@@ -1,9 +1,14 @@
-const { StillCamera, Flip, Rotation } = require("pi-camera-connect");
+const { StillCamera, Flip, ExposureMode, AwbMode } = require("pi-camera-connect");
 const stillCamera = new StillCamera({
     width: 224,
     height: 224,
     flip: Flip.Both,
-    rotation: Rotation.Rotate0    
+    brightness: 50,
+    sharpness: 0,
+    contrast: 0,
+    saturation: 0,
+    exposureMode: ExposureMode.Auto,
+    awbMode: AwbMode.Auto
 });
 
 const path = require('path');
@@ -25,12 +30,12 @@ exports.captureFrame = function() {
             console.error(err);
             return reject(err);
         }    
-      });
+    });
 
 }
 
 exports.getFrameBuffer = async function() {
 
     return await stillCamera.takeImage();
-
+    
 }

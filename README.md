@@ -48,7 +48,7 @@ $ tar -xvzf horizon-agent-linux-deb-arm64.tar.gz
 
 curl -sSL http://192.168.1.14:9443/api/v1/objects/IBM/agent_files/agent-install.crt -u "myorg/admin:HI3GCD0zTvEiWDYNmm4rNE6keNzA7t" --insecure -o "agent-install.crt"
 
-$ export HZN_EXCHANGE_USER_AUTH=admin:<REPLACE_WITH_USER_ORG_ADMIN_PASSWORD>
+$ export HZN_EXCHANGE_USER_AUTH=admin:HI3GCD0zTvEiWDYNmm4rNE6keNzA7t
 
 $ export HZN_EXCHANGE_NODE_AUTH="Gurvinders-MacBook-Pro:#1WaheguruJi"
 
@@ -104,7 +104,7 @@ docker run --rm sinny777/myhelloworld:1.0.0
 
 hzn dev service new -s myservice -V 1.0.0 -i $DOCKER_HUB_ID/myservice --noImageGen
 
-eval $(hzn util configconv -f horizon/hzn.json)
+eval $(hzn util configconv -f hzn.json)
 export ARCH=$(hzn architecture)
     
 $hzn exchange service publish -f service.definition.json -P
@@ -122,7 +122,7 @@ $hzn exchange deployment removepolicy ${HZN_ORG_ID}/policy-${SERVICE_NAME}_${SER
     - Node Setup
     
 export HZN_ORG_ID=myorg
-export HZN_EXCHANGE_USER_AUTH=admin:<REPLACE>
+export HZN_EXCHANGE_USER_AUTH=admin:HI3GCD0zTvEiWDYNmm4rNE6keNzA7t
 
 $ hzn register --policy node.policy.json
 

@@ -25,26 +25,18 @@ class RuleEngine {
 
             // console.log(result.output);
             // const imgPath = path.join('/tmp', 'frame.jpg');
-            const imgPath = path.join(process.env.DATA_DIR, 'frames', 'frame.jpg');
+            const imgPath = path.join(process.env.DATA_DIR, 'frames', 'detected.jpg');
             if(result.output.class == this.alertConfig.label && result.output.confidence >= this.alertConfig.threshold){    
                 this.predictionCount = this.predictionCount + 1;
                 if(this.predictionCount > this.alertConfig.frequency){
                     console.log('\n\nSEND ALERT FOR ', result.output.class, '\n\n');
-                    await fs.writeFileSync(imgPath, result.input.image);
+                    fs.writeFileSync(imgPath, result.input.image);
                     result['output']['imagePath'] = imgPath;
                     this.notification.sendEmail(result)
                     this.predictionCount = 0;
                 } 
             }else{
-                this.predictionCount = 0;
-                // try {
-                //     if (fs.existsSync(imgPath)) {
-                //         console.log('DELETE PREVIOUS frame.jpg');
-                //         await fs.unlinkSync(imgPath);
-                //     }                    
-                // } catch(err) {
-                //       console.error(err)
-                // }
+                this.predictionCount = 0;               
             } 
         } catch (err) {
             console.error(err);
