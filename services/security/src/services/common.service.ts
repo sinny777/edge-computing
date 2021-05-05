@@ -4,13 +4,18 @@ import * as os from 'os';
 import * as fs from 'fs';
 import { CommonServiceI } from '.';
 import { SystemInfo } from './../models/system-info.model';
-import * as simulateJson from '../config/simulate.json';
+import * as configJson from '../config/config.json';
+import { Config } from '../models/config.model';
 
 @bind({scope: BindingScope.TRANSIENT})
 export class CommonService implements CommonServiceI {
   constructor(
     
   ) {}
+
+  async getAppConfig(): Promise<Config> {   
+      return configJson;
+  }
 
   async getSystemInformation(valueObject: any): Promise<SystemInfo> {   
     if(!valueObject) {

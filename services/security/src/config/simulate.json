@@ -34,65 +34,27 @@
                     {
                         "all": [
                             {
-                                "fact": "type",
+                                "fact": "output",
                                 "operator": "equal",
-                                "value": "HB_SENSOR_V1"
+                                "value": "Fire",
+                                "path": "$.class"
                             },
                             {
-                                "fact": "d",
-                                "operator": "greaterThanInclusive",
-                                "value": 35,
-                                "path": "$.temp"
-                            },
-                            {
-                                "fact": "d",
+                                "fact": "output",
                                 "operator": "greaterThanInclusive",
                                 "value": 55,
-                                "path": "$.hum"
+                                "path": "$.confidence"
                             }
                         ]
                     }                    
                 ]
             },
             "event": {
-                "type": "switchOnAC",
+                "type": "FireDetected",
                 "params": {
-                    "message": "Its too hot, turn on the AC!"
+                    "message": "Fire Event is Detected"
                 }
             }
-        },
-        {
-            "conditions": {
-                "any": [
-                    {
-                        "all": [
-                            {
-                                "fact": "type",
-                                "operator": "equal",
-                                "value": "HB_SENSOR_V1"
-                            },
-                            {
-                                "fact": "d",
-                                "operator": "greaterThanInclusive",
-                                "value": 975,
-                                "path": "$.press"
-                            },
-                            {
-                                "fact": "d",
-                                "operator": "greaterThanInclusive",
-                                "value": 305,
-                                "path": "$.alt"
-                            }
-                        ]
-                    }
-                ]
-            },
-            "event": {
-                "type": "TooHigh",
-                "params": {
-                    "message": "Its too high, come down!"
-                }
-            }
-        }        
+        }                
     ]
 }

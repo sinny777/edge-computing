@@ -3,10 +3,10 @@ import { RuleServiceI, CommonServiceI } from './types';
 import {bind, inject, BindingScope} from '@loopback/core';
 import { Engine, Rule } from 'json-rules-engine'
 
-@bind({scope: BindingScope.TRANSIENT})
+@bind({scope: BindingScope.APPLICATION})
 export class RuleService implements RuleServiceI {
 
-    engine: Engine;
+    private engine: Engine;
 
     constructor(
         @inject(ServiceBindings.COMMON_SERVICE) private commonService: CommonServiceI
@@ -17,24 +17,25 @@ export class RuleService implements RuleServiceI {
     async addRules(rules: Array<Rule>) {
         if(rules){
             for(let rule of rules){
-                this.engine.addRule(rule);
+                this.engine.addRule(rule);                
             } 
         }               
     }
 
     async processRules(data: any): Promise<void> {    
         try{
-                const transformedData: any = await this.transformNvalidate(data);
-                console.log('transformedData: >> ', transformedData);
-                if(transformedData) {
-                    if(transformedData && transformedData.d){
-                        this.engine
-                        .run(transformedData)
+                const facts: any = await this.transformNvalidate(data);
+                if(facts) {
+                    if(facts && facts.output){
+                        await this.engine
+                        .run(facts.output)
                         .then(results => {
+                            // console.log(results);
                             results.events.map(event => {
                                 if(event && event.params){
-                                    delete transformedData['success-events'];
-                                    console.log("Rule Triggered for data: ", transformedData, ", Event: ", event, "\n\n");                                    
+                                    delete facts['output']['success-events'];
+                                    // facts['success-events'] = undefined;
+                                    console.log("Rule Triggered for data: ", facts.output, ", Event: ", event, "\n\n");                                    
                                 }                            
                             });
                         }).catch(err => console.log(err.stack));
@@ -49,7 +50,7 @@ export class RuleService implements RuleServiceI {
     private async transformNvalidate(data: any): Promise<any>{
 
         let func = function transform(data: any){
-            console.log('In Transform function: >> ', data);
+            // console.log('In Transform function: >> ');
             return data;
         };
       

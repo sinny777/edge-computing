@@ -1,7 +1,7 @@
 // import { SystemInfo } from './../models/system-info.model';
 import {bind, inject, BindingScope} from '@loopback/core';
 import { ServiceBindings } from '../keys';
-import { RadioServiceI, CommonServiceI, SecurityServiceI } from './types';
+import { DetectionServiceI, RadioServiceI, CommonServiceI, SecurityServiceI, RuleServiceI } from './types';
 import { SystemInfo } from '../models';
 
 @bind({scope: BindingScope.TRANSIENT})
@@ -9,6 +9,8 @@ export class SecurityService implements SecurityServiceI {
   constructor(
     @inject(ServiceBindings.COMMON_SERVICE) private commonService: CommonServiceI,
     @inject(ServiceBindings.RADIO_SERVICE) private radioService: RadioServiceI,
+    @inject(ServiceBindings.DETECTION_SERVICE) private detectionService: DetectionServiceI,
+    @inject(ServiceBindings.RULE_SERVICE) private ruleService: RuleServiceI,
   ) {}
 
   
@@ -20,6 +22,10 @@ export class SecurityService implements SecurityServiceI {
       await this.syncWithCloud();
     }
     await this.radioService.initRadio();
+    const CONFIG = await this.commonService.getAppConfig();
+    let rules: Array<any> = CONFIG.rules;
+    await this.ruleService.addRules(rules);
+    await this.detectionService.startDetection();
   }
   
   async syncWithCloud(): Promise<void> {

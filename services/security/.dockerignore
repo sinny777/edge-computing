@@ -10,3 +10,6 @@ npm-debug.log
 .DS_Store
 node_modules/
 docker-compose*.yml
+
+/model
+model/

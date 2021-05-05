@@ -1,75 +1,59 @@
-# security
 
-This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
-[initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
+## Steps to publish service on horizon hub
 
-## Install dependencies
+docker buildx ls
+docker buildx create --use --name=qemu
+<!-- docker buildx create --name remote --append ssh://ubuntu@192.168.1.6 -->
+docker buildx inspect --bootstrap
 
-By default, dependencies were installed when this application was generated.
-Whenever dependencies in `package.json` are changed, run the following command:
+<!-- docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t ${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION --push . -->
+<!-- docker buildx build --platform linux/amd64,linux/arm64 -t ${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION --push . -->
 
-```sh
-npm install
-```
 
-To only install resolved dependencies in `package-lock.json`:
+sudo docker buildx build \
+  --push -t sinny777/security:0.0.1 \
+  --platform=linux/amd64,linux/arm64,linux/arm/v7 .
 
-```sh
-npm ci
-```
+sudo docker buildx build \
+  --push -t sinny777/security_arm:0.0.1 \
+  --platform=linux/arm/v7 .
 
-## Run the application
+sudo docker buildx build \
+  --push -t sinny777/security_arm64:0.0.1 \
+  --platform=linux/arm64 .
 
-```sh
-npm start
-```
+sudo docker run -it --name security \
+--privileged \
+-p 3000:3000 --env-file .env \
+--mount type=bind,source="/Users/gurvindersingh/Documents/Development/data/ml/models/fire_classification",target=/tmp \
+sinny777/security:0.0.1 /bin/bash
 
-You can also run `node .` to skip the build step.
+docker run -it --name security \
+-p 3000:3000 --env-file .env \
+-v /opt/vc/bin:/opt/vc/bin \
+-v /opt/vc/lib:/opt/vc/lib \
+--device /dev/vchiq \
+--mount type=bind,source=/usr/share,target=/usr/share \
+--privileged \
+sinny777/security_arm64:0.0.1
 
-Open http://127.0.0.1:3000 in your browser.
+export DOCKER_HUB_ID="<dockerhubid>"
+echo "P@ssw0rd" | docker login -u $DOCKER_HUB_ID --password-stdin
 
-## Rebuild the project
+hzn dev service new -s security -V 0.0.1 -i $DOCKER_HUB_ID/security --noImageGen
 
-To incrementally build the project:
 
-```sh
-npm run build
-```
+$ eval $(hzn util configconv -f horizon/hzn.json)
+$ export ARCH=$(hzn architecture)
+$ hzn exchange service publish -f horizon/service.definition.json
 
-To force a full build by cleaning up cached artifacts:
 
-```sh
-npm run rebuild
-```
+TFJS_NODE_CDN_STORAGE="https://storage.googleapis.com/" npm install @tensorflow/tfjs-node-gpu
+https://s3.us.cloud-object-storage.appdomain.cloud/tfjs-cos/libtensorflow-cpu-linux-arm-1.7.4.tar.gz
 
-## Fix code style and formatting issues
 
-```sh
-npm run lint
-```
+## References
 
-To automatically fix such issues:
-
-```sh
-npm run lint:fix
-```
-
-## Other useful commands
-
-- `npm run migrate`: Migrate database schemas for models
-- `npm run openapi-spec`: Generate OpenAPI spec into a file
-- `npm run docker:build`: Build a Docker image for this application
-- `npm run docker:run`: Run this application inside a Docker container
-
-## Tests
-
-```sh
-npm test
-```
-
-## What's next
-
-Please check out [LoopBack 4 documentation](https://loopback.io/doc/en/lb4/) to
-understand how you can continue to add features to this application.
-
-[![LoopBack](https://github.com/strongloop/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
+- [Ubuntu + Tensorflow + RaspberryPi 4](https://qengineering.eu/install-ubuntu-18.04-on-raspberry-pi-4.html)
+- [Running AI in NodeJS](https://developer.ibm.com/technologies/artificial-intelligence/tutorials/environments-for-running-ai-in-nodejs/)
+- [Build for ARM](https://www.tensorflow.org/lite/guide/build_arm)

@@ -1,5 +1,5 @@
 import {BindingKey} from '@loopback/context';
-import { CommonServiceI, RuleServiceI, RadioServiceI, SecurityServiceI } from './services/types';
+import { DetectionServiceI, CommonServiceI, RuleServiceI, RadioServiceI, SecurityServiceI, CameraServiceI } from './services/types';
 import { SimulatorUtilityI } from './utils';
 
 export namespace ServiceBindings {
@@ -14,6 +14,14 @@ export namespace ServiceBindings {
 
   export const RADIO_SERVICE = BindingKey.create<RadioServiceI | undefined>(
     'radio.service',
+  );
+
+  export const DETECTION_SERVICE = BindingKey.create<DetectionServiceI | undefined>(
+    'detection.service',
+  );
+
+  export const CAMERA_SERVICE = BindingKey.create<CameraServiceI | undefined>(
+    'camera.service',
   );
 
   export const SECURITY_SERVICE = BindingKey.create<SecurityServiceI | undefined>(

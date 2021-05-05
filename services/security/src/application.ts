@@ -1,5 +1,5 @@
 import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig} from '@loopback/core';
+import {ApplicationConfig, BindingScope} from '@loopback/core';
 import {
   RestExplorerBindings,
   RestExplorerComponent,
@@ -12,8 +12,9 @@ import {MySequence} from './sequence';
 
 import * as dotenv from "dotenv";
 import { ServiceBindings, UtilityBindings } from './keys';
-import { CommonService, RuleService, RadioService, SecurityService } from './services';
+import { DetectionService, CommonService, RuleService, RadioService, SecurityService, WebcamService, PicamService } from './services';
 import { SimulatorUtility } from './utils/simulator';
+
 
 export {ApplicationConfig};
 
@@ -22,6 +23,12 @@ export class SecurityApplication extends BootMixin(
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
+
+    dotenv.config();
+    let env_path = process.env.NODE_ENV;
+    if(env_path){
+      dotenv.config({ path: env_path });
+    } 
 
     // Set up the custom sequence
     this.sequence(MySequence);
@@ -37,9 +44,18 @@ export class SecurityApplication extends BootMixin(
 
     this.bind(UtilityBindings.SIMULATOR_UTILITY).toClass(SimulatorUtility);
     this.bind(ServiceBindings.COMMON_SERVICE).toClass(CommonService);
-    this.bind(ServiceBindings.RULE_SERVICE).toClass(RuleService);
+    this.bind(ServiceBindings.RULE_SERVICE).toClass(RuleService).inScope(BindingScope.APPLICATION);
     this.bind(ServiceBindings.RADIO_SERVICE).toClass(RadioService);
+    this.bind(ServiceBindings.DETECTION_SERVICE).toClass(DetectionService);
     this.bind(ServiceBindings.SECURITY_SERVICE).toClass(SecurityService);
+
+    // this.service(RuleService, {interface: RuleServiceI})
+
+    if(process.env.USE_WEBCAM){
+      this.bind(ServiceBindings.CAMERA_SERVICE).toClass(WebcamService);
+    }else{
+      this.bind(ServiceBindings.CAMERA_SERVICE).toClass(PicamService);
+    }
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here

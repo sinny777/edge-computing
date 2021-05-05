@@ -1,6 +1,8 @@
 import { SystemInfo } from "../models";
+import { Config } from "../models/config.model";
 
 export interface CommonServiceI {
+    getAppConfig(): Promise<Config>;
     getSystemInformation(valueObject: any): Promise<SystemInfo> ;
     getSerialNumber(): Promise<string> ;
 }
@@ -19,4 +21,14 @@ export interface SecurityServiceI {
 export interface RuleServiceI {
     addRules(rules: Array<any>): Promise<void>;
     processRules(data: any): Promise<void>;
+}
+
+export interface DetectionServiceI {
+    startDetection(): Promise<void>;
+    stopDetection(): Promise<void>;
+}
+
+export interface CameraServiceI {
+    takePicture(): Promise<any>;
+    shotVideo(seconds: number): Promise<void>;
 }

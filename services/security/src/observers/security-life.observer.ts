@@ -34,9 +34,9 @@ export class SecurityLifeObserver implements LifeCycleObserver {
     let cleanup = new Cleanup();
     cleanup.init(this.cleanupOnExit);
     await this.securityService.initSecurity();
-    if(process.env.SIMULATE && process.env.SIMULATE.toLowerCase() === 'true'){
-      await this.simulatoreUtility.simulate({});
-    }    
+    // if(process.env.SIMULATE && process.env.SIMULATE.toLowerCase() === 'true'){
+    //   await this.simulatoreUtility.simulate({});
+    // }    
   }
 
   /**
