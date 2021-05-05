@@ -28,7 +28,7 @@ RUN echo "NPM Version:" && npm --version
 RUN mkdir -p /app
 WORKDIR /app
 
-ADD . /app
+ADD ./app /app
 
 # RUN npm config set registry http://registry.npmjs.org
 RUN npm install -g node-gyp

@@ -43,7 +43,7 @@ export class SecurityApplication extends BootMixin(
     this.component(RestExplorerComponent);
 
     this.bind(UtilityBindings.SIMULATOR_UTILITY).toClass(SimulatorUtility);
-    this.bind(ServiceBindings.COMMON_SERVICE).toClass(CommonService);
+    this.bind(ServiceBindings.COMMON_SERVICE).toClass(CommonService).inScope(BindingScope.SINGLETON);;
     this.bind(ServiceBindings.RULE_SERVICE).toClass(RuleService).inScope(BindingScope.APPLICATION);
     this.bind(ServiceBindings.RADIO_SERVICE).toClass(RadioService);
     this.bind(ServiceBindings.DETECTION_SERVICE).toClass(DetectionService);

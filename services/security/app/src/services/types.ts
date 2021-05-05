@@ -3,6 +3,8 @@ import { Config } from "../models/config.model";
 
 export interface CommonServiceI {
     getAppConfig(): Promise<Config>;
+    getRules(): Promise<any>;
+    getActions(): Promise<any>;
     getSystemInformation(valueObject: any): Promise<SystemInfo> ;
     getSerialNumber(): Promise<string> ;
 }

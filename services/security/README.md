@@ -1,5 +1,5 @@
 
-## Steps to publish service on horizon hub
+## Steps to publish Security service on horizon hub
 
 docker buildx ls
 docker buildx create --use --name=qemu

@@ -6,15 +6,36 @@ import { CommonServiceI } from '.';
 import { SystemInfo } from './../models/system-info.model';
 import * as configJson from '../config/config.json';
 import { Config } from '../models/config.model';
+import path from 'path';
 
-@bind({scope: BindingScope.TRANSIENT})
+const request = require('request');
+
+@bind({scope: BindingScope.SINGLETON})
 export class CommonService implements CommonServiceI {
-  constructor(
-    
-  ) {}
 
-  async getAppConfig(): Promise<Config> {   
-      return configJson;
+  constructor() {}
+
+  private APP_CONFIG: Config;
+
+  async getAppConfig(): Promise<Config> {  
+    if(!this.APP_CONFIG) {
+      this.APP_CONFIG = configJson;
+    }
+    return this.APP_CONFIG;
+  }
+
+  async getRules(): Promise<any> {  
+    if(!this.APP_CONFIG) {
+      this.APP_CONFIG = await this.getAppConfig();
+    }
+     return this.APP_CONFIG.rules;
+  }
+  
+  async getActions(): Promise<any> {  
+    if(!this.APP_CONFIG) {
+      this.APP_CONFIG = await this.getAppConfig();
+    }
+     return this.APP_CONFIG.actions;
   }
 
   async getSystemInformation(valueObject: any): Promise<SystemInfo> {   

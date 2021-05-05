@@ -22,9 +22,7 @@ export class SecurityService implements SecurityServiceI {
       await this.syncWithCloud();
     }
     await this.radioService.initRadio();
-    const CONFIG = await this.commonService.getAppConfig();
-    let rules: Array<any> = CONFIG.rules;
-    await this.ruleService.addRules(rules);
+    await this.ruleService.addRules(await this.commonService.getRules());
     await this.detectionService.startDetection();
   }
   

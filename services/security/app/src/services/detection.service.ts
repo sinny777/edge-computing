@@ -42,9 +42,8 @@ export class DetectionService implements DetectionServiceI {
                     let s = SCHEDULE.scheduleJob('*/5 * * * * *', async () => {
                         const result = await this.predictFrame();
                         await this.ruleService.processRules(result);
-                        console.log('RESULT: >> ', result.output);
+                        // console.log('RESULT: >> ', result.output);
                         // await testPrediction(objectDetectionModel);
-                        // console.log('Event Detection Started...');  
                         this.detecting = true;                      
                     }); 
                 }else{
@@ -106,7 +105,6 @@ export class DetectionService implements DetectionServiceI {
               const predictedClass = await outputTensor.as1D().argMax().data();
               const confidence = Math.round(await outputTensor.as1D().max().data() * 100); 
               const result = {'input': {'image': image}, 'output': {'class': this.labels[predictedClass[0]], 'confidence': confidence}}; 
-            //   console.log('RESULT 1: >> ', result.output);
               // const result = {'image': image, 'class': this.labels[predictedClass[0]], 'confidence': confidence}; 
               return result;      
             }    
