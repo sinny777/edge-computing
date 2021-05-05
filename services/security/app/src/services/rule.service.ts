@@ -38,15 +38,15 @@ export class RuleService implements RuleServiceI {
                                 }                          
                             });
                         }).catch(err => console.log(err.stack));
-                    }                    
-                }
-                delete facts['output']['success-events'];
-                if(triggeredEvent){
-                    this.actionOnEvent(triggeredEvent, facts['output']);                                   
-                }else{
-                    console.log('ALL OK: >> ', facts.output);
-                }
 
+                        delete facts['output']['success-events'];
+                        if(triggeredEvent){
+                            this.actionOnEvent(triggeredEvent, facts['output']);                                   
+                        }else{
+                            console.log('ALL OK: >> ', facts.output);
+                        }
+                    }  
+                }
             } catch(err){
                 console.log("Error in processRules: >>>>>>> ");
                 console.error(err);
