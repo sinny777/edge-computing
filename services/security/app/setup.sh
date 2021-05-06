@@ -5,6 +5,10 @@ echo $arch
 
 npm install
 
+# rm -rf node_modules package-lock.json
+# npm install --only=production
+# rm -rf src
+
 if [ ${arch} == 'aarch64' ]; then
     echo "ARM 64 Bit Architecture"
     echo '{' >> 'custom-binary.json' && \
@@ -15,11 +19,6 @@ if [ ${arch} == 'aarch64' ]; then
 
 elif [ ${arch} == 'armv7l' ]; then
     echo "ARM 32 Bit Architecture"
-    # echo '{' >> 'custom-binary.json' && \
-    # echo '"tf-lib": "https://gurvsin3-visualrecognition.s3.jp-tok.cloud-object-storage.appdomain.cloud/libtensorflow_arm32.tar.gz"'  >> 'custom-binary.json' && \
-    # echo '}' >> 'custom-binary.json'
-    # cp custom-binary.json node_modules/@tensorflow/tfjs-node/scripts/
-    # chmod 755 node_modules/@tensorflow/tfjs-node/scripts/custom-binary.json
     npm uninstall --save @tensorflow/tfjs-node
     npm install --save @tensorflow/tfjs-node@2.6.0
 
@@ -34,15 +33,5 @@ fi
 
 npm rebuild @tensorflow/tfjs-node --build-from-source
 
+npm install edge-sx127x
 npm run build
-
-# FILE=assets/model/saved_model.pb
-# if test -f "$FILE"; then
-#     echo "$FILE exists."
-# else
-#     wget https://gurvsin3-visualrecognition.s3.jp-tok.cloud-object-storage.appdomain.cloud/model_dir.tar.gz \
-#     -O assets/model.tar.gz
-#     cd assets
-#     tar -xf model.tar.gz
-#     echo "AI MODEL DOWNLOADED..." 
-# fi

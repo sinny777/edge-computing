@@ -15,6 +15,10 @@ sudo docker buildx build \
   --platform=linux/amd64,linux/arm64,linux/arm/v7 .
 
 sudo docker buildx build \
+  --push -t sinny777/security:0.0.1 \
+  --platform=linux/amd64,linux/arm64,linux/arm/v7 .
+
+sudo docker buildx build \
   --push -t sinny777/security_arm:0.0.1 \
   --platform=linux/arm/v7 .
 

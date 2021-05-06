@@ -48,8 +48,11 @@ RUN echo "/opt/vc/lib" > /etc/ld.so.conf.d/00-vcms.conf \
 # ADD 00-vmcs.conf /etc/ld.so.conf.d/
 # RUN ldconfig
 
+RUN npm i edge-sx127x
+RUN npm run build
+
 # Bind to all network interfaces so that it can be mapped to the host OS
-ENV HOST=0.0.0.0 PORT=3001
+ENV HOST=0.0.0.0 PORT=3000
 
 EXPOSE ${PORT}
 
