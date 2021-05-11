@@ -35,7 +35,7 @@ export class RadioService implements RadioServiceI {
               }
               this.radioAvailable = true;
               this.radio.on('data', (data: any, rssi: any) => {
-				        console.log('data:', '\'' + data.toString() + '\'', rssi);
+				        // console.log('data:', '\'' + data.toString() + '\'', rssi);
                 console.log('\n\nRadio data received: ' + data.toString());  
                 this.ruleService.processRules(data);                
               });

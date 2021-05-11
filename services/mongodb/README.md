@@ -13,20 +13,28 @@ docker buildx inspect --bootstrap
 
 
 docker buildx build \
-  --push -t sinny777/mongo:0.0.1 \
+  --push -t sinny777/mongo:1.0.0 \
   --platform=linux/amd64,linux/arm64 .
 
 docker buildx build \
   --push -t sinny777/mongo_arm64:0.0.1 \
   --platform=linux/arm64 .
 
-docker run --rm -d --name mongo -p 27017:27017 \
+docker buildx build --rm --no-cache \
+    --build-arg BUILD_DATE="$(date +"%Y-%m-%dT%H:%M:%SZ")" \
+    --build-arg TAG_SUFFIX=default \
+    --file Dockerfile \
+    --platform=linux/arm64 \
+    --push -t sinny777/mongo:1.0.0 .
+
+docker run --rm -it -d --name mongo \
+-p 27017:27017 \
 -e MONGO_INITDB_ROOT_USERNAME=admin \
 -e MONGO_INITDB_ROOT_PASSWORD=1SatnamW \
 -e DB_USERNAME=sinny777 \
 -e DB_PASSWORD=1SatnamW \
--e DB_NAME="smartthings" \
-sinny777/mongo_arm64:0.0.1
+-e DB_NAME="admin" \
+1df792d1d0ee --auth
 
 $ eval $(hzn util configconv -f horizon/hzn.json)
 $ export ARCH=$(hzn architecture)

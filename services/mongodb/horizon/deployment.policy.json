@@ -15,7 +15,7 @@
   "properties": [
   ],
   "constraints": [
-    "model == \"Rpi4\" OR model == \"Thingamajig ULTRA\"",
+    "model == \"Rpi4\"",
     "isGateway == true"
   ],
   "userInput": [
@@ -38,14 +38,14 @@
         },
         {
           "name": "DB_NAME",
-          "value": "smartthings"
+          "value": "admin"
         },
         {
           "name": "DB_USERNAME",
           "value": "sinny777"
         },
         {
-          "name": "DB_USERNAME",
+          "name": "DB_PASSWORD",
           "value": "1SatnamW"
         },
         {

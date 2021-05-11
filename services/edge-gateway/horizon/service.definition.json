@@ -7,14 +7,9 @@
     "url": "$SERVICE_NAME",
     "version": "$SERVICE_VERSION",
     "arch": "$ARCH",
-    "sharable": "singleton",
-    "requiredServices": [{
-        "url": "mongo",
-        "org": "$HZN_ORG_ID",
-        "versionRange": "[0.0.0,INFINITY)",
-        "arch": "$ARCH"
-    }],
-    "userInput": [
+    "sharable": "multiple",
+    "requiredServices": [],
+    "userInputs": [
         {
             "name": "DB_CONNECTOR",
             "label": "DB Connector",
@@ -25,7 +20,7 @@
             "name": "DB_HOST",
             "label": "DB Host",
             "type": "string",
-            "defaultValue": "mongo"
+            "defaultValue": "localhost"
         },
         {
             "name": "DB_PORT",
@@ -60,8 +55,8 @@
     ],
     "deployment": {
         "services": {
-            "edge-gateway": {
-                "image": "${DOCKER_IMAGE_BASE}:$SERVICE_VERSION",
+            "$SERVICE_NAME": {
+                "image": "$DOCKER_IMAGE_BASE:$SERVICE_VERSION",
                 "ports": [ 
                     { "HostIP": "0.0.0.0" , "HostPort": "9000:9000/tcp"}
                 ],

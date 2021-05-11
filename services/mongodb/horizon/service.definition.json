@@ -7,9 +7,9 @@
     "url": "$SERVICE_NAME",
     "version": "$SERVICE_VERSION",
     "arch": "$ARCH",
-    "sharable": "singleton",
+    "sharable": "multiple",
     "requiredServices": [],
-    "userInput": [
+    "userInputs": [
         {
             "name": "MONGO_INITDB_DATABASE",
             "label": "Auth Database",
@@ -44,7 +44,7 @@
             "name": "DB_NAME",
             "label": "DB Name",
             "type": "string",
-            "defaultValue": "smartthings"
+            "defaultValue": "admin"
         },
         {
             "name": "MONGO_DATA_DIR",
@@ -62,12 +62,11 @@
     "deployment": {
         "services": {
             "$SERVICE_NAME": {
-                "image": "${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION",
+                "image": "$DOCKER_IMAGE_BASE:$SERVICE_VERSION",
                 "ports": [ 
                     { "HostIP": "0.0.0.0", "HostPort": "27017:27017/tcp" }
                 ],
                 "network": "host",
-                "command": ["--auth"],
                 "privileged": true
             }
         }

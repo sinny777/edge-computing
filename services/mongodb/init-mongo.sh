@@ -7,7 +7,7 @@ mongo -- "$MONGO_INITDB_DATABASE" <<EOF
     admin.auth(rootUser, rootPassword);
 
     db = db.getSiblingDB('$DB_NAME');
-    var user = '$DB_USER';
+    var user = '$DB_USERNAME';
     var passwd = '$DB_PASSWORD';
     db.createUser({user: user, pwd: passwd, roles: ["readWrite"]});
 EOF
