@@ -25,7 +25,7 @@ export class RuleService implements RuleServiceI {
     async processRules(data: any): Promise<void> {    
         try{
                 const transformedData: any = await this.transformNvalidate(data);
-                console.log('transformedData: >> ', transformedData);
+                // console.log('transformedData: >> ', transformedData);
                 if(transformedData) {
                     if(transformedData && transformedData.d){
                         this.engine
@@ -49,7 +49,8 @@ export class RuleService implements RuleServiceI {
     private async transformNvalidate(data: any): Promise<any>{
 
         let func = function transform(data: any){
-            console.log('In Transform function: >> ', data);
+            // console.log('In Transform function: >> ', data);
+            
             return data;
         };
       
