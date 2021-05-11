@@ -1,8 +1,8 @@
 name: buildx
 
 on:
-  schedule:
-    - cron: '0 10 * * *' # everyday at 10am
+  # schedule:
+  #   - cron: '0 10 * * *' # everyday at 10am
   pull_request:
     branches: master
   push:
@@ -23,8 +23,8 @@ jobs:
         run: |
           DOCKER_IMAGE=sinny777/edge-gateway
           # DOCKER_PLATFORMS=linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386,linux/ppc64le,linux/s390x
-          DOCKER_PLATFORMS=linux/arm64
-          VERSION=edge
+          DOCKER_PLATFORMS=linux/amd64,linux/arm64,linux/arm/v7
+          VERSION=1.0.0
 
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/v}
