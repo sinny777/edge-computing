@@ -1,6 +1,5 @@
-# edge-gateway
 
-[![LoopBack](https://github.com/strongloop/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
+# edge-gateway service for Edge Computing
 
 ## Requirements
 
@@ -24,7 +23,7 @@
 
 ```
 
-docker build -t sinny777/edge-gateway -f ./services/edge-gateway/Dockerfile ./services/edge-gateway
+docker build -t sinny777/edge-gateway .
 
 docker run --rm -it --name edge-gateway -p 9000:9000 \
     -e DB_CONNECTOR=mongodb \
@@ -37,7 +36,7 @@ docker run --rm -it --name edge-gateway -p 9000:9000 \
     -v /dev/mem:/dev/mem \
     -v /sys/class/gpio:/sys/class/gpio \
     --privileged \
-    18d2a3213af0
+    sinny777/edge-gateway_arm64:1.0.0
     
 ```
 

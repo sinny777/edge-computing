@@ -1,42 +1,42 @@
-# FROM alpine:latest
-# FROM node:12.22.1-alpine AS BUILD_IMAGE
-# FROM balenalib/rpi-raspbian
+ARG ARCH=arm64v8
+ARG NODE_VERSION=12.22.1
+ARG OS=buster-slim
 
-FROM ubuntu:18.04
+FROM ${ARCH}/node:${NODE_VERSION}-${OS}
 
-LABEL author="Gurvinder Singh <sinny777@gmail.com>"
-LABEL profile="http://www.gurvinder.info"
+LABEL org.label-schema.build-date=${BUILD_DATE} \
+    org.label-schema.docker.dockerfile=".docker/Dockerfile.arm" \
+    org.label-schema.license="Apache-2.0" \
+    org.label-schema.name="EdgeGateway" \
+    org.label-schema.version=${BUILD_VERSION} \
+    org.label-schema.description="Edge Computing - Edge Gateway Service" \
+    org.label-schema.url="https://github.com/sinny777/edge-computing" \
+    org.label-schema.vcs-ref=${BUILD_REF} \
+    org.label-schema.vcs-type="Git" \
+    org.label-schema.vcs-url="https://github.com/sinny777/edge-computing" \
+    org.label-schema.arch=${ARCH} \
+    authors="Gurvinder Singh <sinny777@gmail.com>"
 
 USER root
 
+# Updates and adds system required packages
 RUN apt-get update && \
-    apt-get -qy install curl ca-certificates apt-transport-https nano python make \
-    build-essential cmake gcc g++ unzip pkg-config wget fswebcam \
+    apt-get -qy install curl ca-certificates nano python make \
+    build-essential wget fswebcam \
+    cmake \
+    gcc \
     -y --no-install-recommends --fix-missing apt-utils netcat && rm -rf /var/lib/apt/lists/*
-
-ENV NODE_VERSION=12.22.1
-RUN apt install -y curl
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
-ENV NVM_DIR=/root/.nvm
-RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION} && \
-    . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION} && \
-    . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
-ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 
 WORKDIR /usr/src/app
 
-ADD ./app ./
+ADD ./app .
 
-# RUN npm config set registry http://registry.npmjs.org
 RUN npm install -g node-gyp && \
     npm install -g node-pre-gyp
-
-# cp scripts/custom-binary.json node_modules/@tensorflow/tfjs-node/scripts
+# RUN npm i -g @loopback/build@6.1.1
 
 RUN chmod 755 /usr/src/app/setup.sh && \
     bash /usr/src/app/setup.sh
-# RUN chmod 755 /usr/src/app/startup.sh
-# RUN sudo usermod -a -G video developer
 
 ENV PATH="$PATH:/opt/vc/bin"
 RUN echo "/opt/vc/lib" > /etc/ld.so.conf.d/00-vcms.conf \
@@ -44,16 +44,8 @@ RUN echo "/opt/vc/lib" > /etc/ld.so.conf.d/00-vcms.conf \
 # ADD 00-vmcs.conf /etc/ld.so.conf.d/
 # RUN ldconfig
 
-# Bind to all network interfaces so that it can be mapped to the host OS
 ENV HOST=0.0.0.0 PORT=3000
 
 EXPOSE ${PORT}
 
-# ENTRYPOINT ["/app/startup.sh"]
-CMD ["node", "."]
-
-
-
-
-
-
+CMD [ "node", "." ]

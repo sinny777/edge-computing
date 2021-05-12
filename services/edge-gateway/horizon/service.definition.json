@@ -8,7 +8,12 @@
     "version": "$SERVICE_VERSION",
     "arch": "$ARCH",
     "sharable": "multiple",
-    "requiredServices": [],
+    "requiredServices": [{
+        "url": "edge-mongo",
+        "org": "$HZN_ORG_ID",
+        "versionRange": "[0.0.0,INFINITY)",
+        "arch": "$ARCH"
+    }],
     "userInputs": [
         {
             "name": "DB_CONNECTOR",
@@ -20,7 +25,7 @@
             "name": "DB_HOST",
             "label": "DB Host",
             "type": "string",
-            "defaultValue": "localhost"
+            "defaultValue": "edge-mongo"
         },
         {
             "name": "DB_PORT",
@@ -56,7 +61,7 @@
     "deployment": {
         "services": {
             "$SERVICE_NAME": {
-                "image": "$DOCKER_IMAGE_BASE:$SERVICE_VERSION",
+                "image": "${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION",
                 "ports": [ 
                     { "HostIP": "0.0.0.0" , "HostPort": "9000:9000/tcp"}
                 ],

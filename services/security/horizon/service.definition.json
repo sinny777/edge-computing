@@ -50,7 +50,7 @@
     "deployment": {
         "services": {
             "security": {
-                "image": "${DOCKER_IMAGE_BASE}:$SERVICE_VERSION",
+                "image": "${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION",
                 "ports": [ 
                     { "HostIP": "0.0.0.0" , "HostPort": "3000:3000/tcp"}
                 ],

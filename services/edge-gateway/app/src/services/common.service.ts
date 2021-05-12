@@ -54,7 +54,7 @@ export class CommonService implements CommonServiceI {
   }
 
   async loadConfiguration(): Promise<any>{
-    return 
+    return false;
   }
 
 }

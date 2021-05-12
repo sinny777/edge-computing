@@ -1,7 +1,21 @@
-FROM arm64v8/node:12.18.3-buster-slim
+ARG ARCH=arm64v8
+ARG NODE_VERSION=12.22.1
+ARG OS=buster-slim
 
-LABEL author="Gurvinder Singh <sinny777@gmail.com>"
-LABEL profile="http://www.gurvinder.info"
+FROM ${ARCH}/node:${NODE_VERSION}-${OS}
+
+LABEL org.label-schema.build-date=${BUILD_DATE} \
+    org.label-schema.docker.dockerfile=".docker/Dockerfile.arm" \
+    org.label-schema.license="Apache-2.0" \
+    org.label-schema.name="EdgeGateway" \
+    org.label-schema.version=${BUILD_VERSION} \
+    org.label-schema.description="Edge Computing - Edge Gateway Service" \
+    org.label-schema.url="https://github.com/sinny777/edge-computing" \
+    org.label-schema.vcs-ref=${BUILD_REF} \
+    org.label-schema.vcs-type="Git" \
+    org.label-schema.vcs-url="https://github.com/sinny777/edge-computing" \
+    org.label-schema.arch=${ARCH} \
+    authors="Gurvinder Singh <sinny777@gmail.com>"
 
 USER root
 
@@ -13,24 +27,19 @@ RUN apt-get update && \
     gcc \
     -y --no-install-recommends --fix-missing apt-utils netcat && rm -rf /var/lib/apt/lists/*
 
+RUN mkdir -p /app
+WORKDIR /app
 
-RUN mkdir -p /edge-gateway
-WORKDIR /edge-gateway
+ADD ./app .
 
-ADD ./ /edge-gateway
-
-# RUN npm config set registry http://registry.npmjs.org
 RUN npm install -g node-gyp
 RUN npm install -g node-pre-gyp
 # RUN npm i -g @loopback/build@6.1.1
 
-# RUN JOBS=MAX npm i --unsafe-perm --production
-# RUN npm i edge-sx127x --save --unsafe-perm --production
-RUN JOBS=MAX npm ci 
+RUN npm install
 RUN npm i edge-sx127x
 RUN npm run build
 
-# Bind to all network interfaces so that it can be mapped to the host OS
 ENV HOST=0.0.0.0 PORT=9000
 
 EXPOSE ${PORT}

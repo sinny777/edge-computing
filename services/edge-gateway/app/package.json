@@ -60,6 +60,10 @@
     "systeminformation": "^4.26.10",
     "tslib": "^2.0.0"
   },
+  "optionalDependencies": {
+    "spi-device":"^3.1.1",
+    "edge-sx127x": "^1.0.1"
+  },
   "devDependencies": {
     "@loopback/build": "^6.3.0",
     "source-map-support": "^0.5.19",

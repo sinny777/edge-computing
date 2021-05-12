@@ -31,7 +31,7 @@
         },
         {
           "name": "DB_HOST",
-          "value": "localhost"
+          "value": "edge-mongo"
         },
         {
           "name": "DB_PORT",
