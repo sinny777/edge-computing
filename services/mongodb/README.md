@@ -27,13 +27,15 @@ docker buildx build --rm --no-cache \
     --platform=linux/arm64 \
     --push -t sinny777/mongo:1.0.0 .
 
-docker run --rm -it -d --name mongo \
+docker run --rm -it --name mongo \
 -p 27017:27017 \
 -e MONGO_INITDB_ROOT_USERNAME=admin \
--e MONGO_INITDB_ROOT_PASSWORD=1SatnamW \
+-e MONGO_INITDB_ROOT_PASSWORD=P@ssw0rd \
 -e DB_USERNAME=sinny777 \
 -e DB_PASSWORD=1SatnamW \
--e DB_NAME="admin" \
+-e DB_NAME="smartthings" \
+-e MONGO_DATA_DIR=/data/db \
+-v /home/db:/data/db \
 1df792d1d0ee --auth
 
 $ eval $(hzn util configconv -f horizon/hzn.json)

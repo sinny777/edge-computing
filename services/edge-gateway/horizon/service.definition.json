@@ -37,7 +37,7 @@
             "name": "DB_USERNAME",
             "label": "DB Username",
             "type": "string",
-            "defaultValue": "admin"
+            "defaultValue": "sinny777"
         },
         {
             "name": "DB_PASSWORD",
@@ -49,7 +49,7 @@
             "name": "DB_NAME",
             "label": "DB Name",
             "type": "string",
-            "defaultValue": "admin"
+            "defaultValue": "smartthings"
         },
         {
             "name": "SIMULATE",

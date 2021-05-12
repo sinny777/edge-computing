@@ -25,20 +25,16 @@
       "serviceVersionRange": "[0.0.0,INFINITY)",
       "inputs": [
         {
-          "name": "MONGO_INITDB_DATABASE",
-          "value": "admin"
-        },
-        {
           "name": "MONGO_INITDB_ROOT_USERNAME",
           "value": "admin"
         },
         {
           "name": "MONGO_INITDB_ROOT_PASSWORD",
-          "value": "1SatnamW"
+          "value": "P@ssw0rd"
         },
         {
           "name": "DB_NAME",
-          "value": "admin"
+          "value": "smartthings"
         },
         {
           "name": "DB_USERNAME",
@@ -51,10 +47,6 @@
         {
           "name": "MONGO_DATA_DIR",
           "value": "/data/db"
-        },
-        {
-          "name": "MONGO_LOG_DIR",
-          "value": "/dev/null"
         }
       ]
     }

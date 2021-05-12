@@ -124,7 +124,7 @@ $hzn exchange deployment removepolicy ${HZN_ORG_ID}/policy-${SERVICE_NAME}_${SER
 export HZN_ORG_ID=myorg
 export HZN_EXCHANGE_USER_AUTH=admin:HI3GCD0zTvEiWDYNmm4rNE6keNzA7t
 
-$ hzn register --policy node.policy.json
+$hzn register --policy node.policy.json
 
 $hzn service log -f ${SERVICE_NAME}
 

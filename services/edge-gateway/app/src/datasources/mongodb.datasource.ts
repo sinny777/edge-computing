@@ -25,9 +25,14 @@ export class MongodbDataSource extends juggler.DataSource
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
       'plugin': 'retry',
       'retryAttempts': 3,
-      'retryTimeout': 1000
+      'retryTimeout': 1000,
+      writeConcern: {
+        j: true
+      }
     };
 
     super(dsConfig);

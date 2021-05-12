@@ -31,7 +31,7 @@
         },
         {
           "name": "DB_HOST",
-          "value": "edge-mongo"
+          "value": "localhost"
         },
         {
           "name": "DB_PORT",
@@ -39,7 +39,7 @@
         },
         {
           "name": "DB_USERNAME",
-          "value": "admin"
+          "value": "sinny777"
         },
         {
           "name": "DB_PASSWORD",
@@ -47,7 +47,7 @@
         },
         {
           "name": "DB_NAME",
-          "value": "admin"
+          "value": "smartthings"
         },
         {
           "name": "SIMULATE",
