@@ -1,4 +1,4 @@
-name: buildx
+name: security_arm64
 
 on:
   # schedule:

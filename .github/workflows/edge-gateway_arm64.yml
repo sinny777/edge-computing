@@ -1,4 +1,4 @@
-name: buildx
+name: edge-gateway_arm64
 
 on:
   # schedule:
