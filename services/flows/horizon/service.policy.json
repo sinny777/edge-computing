@@ -1,0 +1,9 @@
+{
+    "properties": [
+    ],
+    "constraints": [
+      "model == \"Rpi4\"",
+      "isGateway == true"
+    ]
+}
+  

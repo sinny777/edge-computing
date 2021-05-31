@@ -38,6 +38,7 @@ RUN npm install -g node-gyp && \
 RUN chmod 755 /usr/src/app/setup.sh && \
     bash /usr/src/app/setup.sh
 
+ENV LD_LIBRARY_PATH=/opt/vc/lib
 ENV PATH="$PATH:/opt/vc/bin"
 RUN echo "/opt/vc/lib" > /etc/ld.so.conf.d/00-vcms.conf \
     && ldconfig

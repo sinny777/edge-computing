@@ -1,0 +1,68 @@
+{
+    "org": "$HZN_ORG_ID",
+    "label": "$SERVICE_NAME for $ARCH",
+    "description": "Edge Flows Service for Edge Device",
+    "public": true,
+    "documentation": "",
+    "url": "$SERVICE_NAME",
+    "version": "$SERVICE_VERSION",
+    "arch": "$ARCH",
+    "sharable": "multiple",
+    "requiredServices": [],
+    "userInputs": [
+        {
+            "name": "FLOWS",
+            "label": "FLOWS file",
+            "type": "string",
+            "defaultValue": "flows.json"
+        },
+        {
+            "name": "CPPFLAGS",
+            "label": "CPPFLAGS",
+            "type": "string",
+            "defaultValue": "-I/usr/local/opt/openssl/include"
+        },
+        {
+            "name": "LDFLAGS",
+            "label": "LDFLAGS",
+            "type": "string",
+            "defaultValue": "-L/usr/local/opt/openssl/lib"
+        },
+        {
+            "name": "kafka_brokers",
+            "label": "kafka brokers",
+            "type": "string",
+            "defaultValue": "broker-1-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-4-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-2-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-3-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-5-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-0-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093"
+        },
+        {
+            "name": "kafka_admin_url",
+            "label": "kafka_admin_url",
+            "type": "string",
+            "defaultValue": "https://0lr3601j3vcp93dp.svc05.us-south.eventstreams.cloud.ibm.com"
+        },
+        {
+            "name": "kafka_http_url",
+            "label": "kafka_http_url",
+            "type": "string",
+            "defaultValue": "https://0lr3601j3vcp93dp.svc05.us-south.eventstreams.cloud.ibm.com"
+        },
+        {
+            "name": "kafka_password",
+            "label": "kafka_password",
+            "type": "string",
+            "defaultValue": "C5DvOdXt9UkNxqUPOajw6lTWnxzMYFg6os5-AqiZTo58"
+        }
+    ],
+    "deployment": {
+        "services": {
+            "$SERVICE_NAME": {
+                "image": "$DOCKER_IMAGE_BASE:$SERVICE_VERSION",
+                "ports": [ 
+                    { "HostIP": "0.0.0.0", "HostPort": "1880:1880/tcp" }
+                ],
+                "network": "host",
+                "privileged": true               
+            }
+        }
+    }
+}

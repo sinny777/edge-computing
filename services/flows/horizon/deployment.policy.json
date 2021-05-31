@@ -1,0 +1,58 @@
+{
+  "label": "$SERVICE_NAME Deployment Policy",
+  "description": "A Edge Flows service Horizon Deployment Policy",
+  "service": {
+    "name": "$SERVICE_NAME",
+    "org": "$HZN_ORG_ID",
+    "arch": "*",
+    "serviceVersions": [
+      {
+        "version": "$SERVICE_VERSION",
+        "priority":{}
+      }
+    ]
+  },
+  "properties": [
+  ],
+  "constraints": [
+    "model == \"Rpi4\"",
+    "isGateway == true"
+  ],
+  "userInput": [
+    {
+      "serviceOrgid": "$HZN_ORG_ID",
+      "serviceUrl": "$SERVICE_NAME",
+      "serviceVersionRange": "[0.0.0,INFINITY)",
+      "inputs": [
+        {
+          "name": "FLOWS",
+          "value": "flows.json"
+        },
+        {
+            "name": "CPPFLAGS",
+            "value": "-I/usr/local/opt/openssl/include"
+        },
+        {
+            "name": "LDFLAGS",
+            "value": "-L/usr/local/opt/openssl/lib"
+        },
+        {
+            "name": "kafka_brokers",
+            "value": "broker-1-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-4-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-2-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-3-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-5-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-0-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093"
+        },
+        {
+            "name": "kafka_admin_url",
+            "value": "https://0lr3601j3vcp93dp.svc05.us-south.eventstreams.cloud.ibm.com"
+        },
+        {
+            "name": "kafka_http_url",
+            "value": "https://0lr3601j3vcp93dp.svc05.us-south.eventstreams.cloud.ibm.com"
+        },
+        {
+            "name": "kafka_password",
+            "value": "C5DvOdXt9UkNxqUPOajw6lTWnxzMYFg6os5-AqiZTo58"
+        }
+      ]
+    }
+  ]
+}

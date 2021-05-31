@@ -1,0 +1,10 @@
+{
+    "properties": [
+      { "name": "model", "value": "Rpi4" },
+      { "name": "isGateway", "value": true },
+      { "name": "openhorizon.allowPrivileged", "value": true}
+    ],
+    "constraints": [
+    ]
+}
+  
