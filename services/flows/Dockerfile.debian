@@ -3,7 +3,7 @@ ARG NODE_VERSION=12
 ARG OS=buster-slim
 
 #### Stage BASE ########################################################################################################
-FROM ${ARCH}/node:${NODE_VERSION}-${OS} AS base
+FROM arm64v8/node:${NODE_VERSION}-${OS} AS base
 
 # Copy scripts
 COPY scripts/*.sh /tmp/
