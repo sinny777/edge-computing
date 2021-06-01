@@ -1,4 +1,5 @@
 #!/bin/bash
+# export NODE_RED_VERSION=$(grep -oE "\"node-red\": \"(\w*.\w*.\w*.\w*.\w*.)" package.json | cut -d\" -f4)
 export NODE_RED_VERSION=$(grep -oE "\"node-red\": \"(\w*.\w*.\w*.\w*.\w*.)" package.json | cut -d\" -f4)
 
 echo "#########################################################################"
@@ -13,4 +14,4 @@ docker build --rm --no-cache \
     --build-arg BUILD_DATE="$(date +"%Y-%m-%dT%H:%M:%SZ")" \
     --build-arg TAG_SUFFIX=1.0.0 \
     --file Dockerfile.custom \
-    --tag sinny777:flows .
+    --tag sinny777:edge-flows_arm64 .
