@@ -1,14 +1,16 @@
+require("dotenv").config();
+console.log('TITLE: >> ', process.env.TITLE);
 module.exports = {
     credentialSecret: process.env.NODE_RED_CREDENTIAL_SECRET, // add exactly this
     editorTheme: {
         page: {
-            title: "Edge Rules",
+            title: process.env.TITLE = 'Edge Rules',
             favicon: __dirname + "//images//watson-logo.png", //can use '__dirname + "\\img\\favicon.png" (\\ on Windows)'
             // css: "/absolute/path/to/custom/css/file",
             // scripts: "/absolute/path/to/custom/js/file"  // As of 0.17
         },
         header: {
-            title: "Edge Rules",
+            title: process.env.TITLE = 'Edge Rules',
             image: __dirname + "//images//watson-logo.png", // or null to remove image
             // url: "http://nodered.org" // optional url to make the header text/image a link to this url
         },
@@ -47,6 +49,10 @@ module.exports = {
             // theme: [ // Override node colours - rules test against category/type by RegExp.
             //     { category: ".*", type: ".*", color: "#f0f" }
             // ]
+        },
+
+        functionGlobalContext: {
+            env: process.env
         },
     
         projects: {

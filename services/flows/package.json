@@ -11,7 +11,7 @@
   },
   "main": "node_modules/node-red/red/red.js",
   "scripts": {
-    "start": "node $NODE_OPTIONS node_modules/node-red/red.js flows.json -s settings.js",
+    "start": "node $NODE_OPTIONS node_modules/node-red/red.js flows.json -s settings.js --userDir $USER_DIR",
     "debug": "node --inspect=0.0.0.0:9229 $NODE_OPTIONS node_modules/node-red/red.js $FLOWS",
     "debug_brk": "node --inspect=0.0.0.0:9229 --inspect-brk $NODE_OPTIONS node_modules/node-red/red.js $FLOWS"
   },
@@ -21,9 +21,11 @@
     }
   ],
   "dependencies": {
+    "dotenv": "^10.0.0",
     "node-red": "^1.3.4",
+    "node-red-node-twilio": "~0.1.0",
     "node-red-contrib-rdkafka-secure": "^0.3.0",
-    "node-red-contrib-uibuilder": "*"
+    "node-red-contrib-slack-files": "~0.1.2"
   },
   "engines": {
     "node": ">=10"

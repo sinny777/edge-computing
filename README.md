@@ -128,6 +128,8 @@ $hzn register --policy node.policy.json
 
 $hzn service log -f ${SERVICE_NAME}
 
+$hzn unregister -f
+
 $ hzn version
 $ hzn agreement list
 $ hzn node list -v
