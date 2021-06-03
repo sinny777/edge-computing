@@ -36,7 +36,7 @@ COPY package.json .
 COPY flows.json .
 COPY settings.js .
 ADD data /data
-ADD certs /certs
+ADD certs ./certs
 
 #### Stage BUILD #######################################################################################################
 FROM base AS build
