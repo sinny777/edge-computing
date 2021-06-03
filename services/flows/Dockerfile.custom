@@ -33,7 +33,10 @@ WORKDIR /usr/src/node-red
 
 # package.json contains Node-RED NPM module and node dependencies
 COPY package.json .
-COPY flows.json /data
+COPY flows.json .
+COPY settings.js .
+ADD data /data
+ADD certs ./certs
 
 #### Stage BUILD #######################################################################################################
 FROM base AS build
@@ -41,7 +44,7 @@ FROM base AS build
 # Install Build tools
 RUN apk add --no-cache --virtual buildtools build-base linux-headers udev python && \
     npm install --unsafe-perm --no-update-notifier --no-fund --only=production && \
-    /tmp/remove_native_gpio.sh && \
+    # /tmp/remove_native_gpio.sh && \
     cp -R node_modules prod_node_modules
 
 #### Stage RELEASE #####################################################################################################
@@ -54,26 +57,32 @@ ARG ARCH
 ARG TAG_SUFFIX=default
 
 LABEL org.label-schema.build-date=${BUILD_DATE} \
-    org.label-schema.docker.dockerfile=".docker/Dockerfile.alpine" \
+    org.label-schema.docker.dockerfile=".docker/Dockerfile.debian" \
     org.label-schema.license="Apache-2.0" \
-    org.label-schema.name="Node-RED" \
+    org.label-schema.name="EdgeFlow" \
     org.label-schema.version=${BUILD_VERSION} \
-    org.label-schema.description="Low-code programming for event-driven applications." \
+    org.label-schema.description="Low-code programming for event-driven Edge Computing." \
     org.label-schema.url="https://nodered.org" \
     org.label-schema.vcs-ref=${BUILD_REF} \
     org.label-schema.vcs-type="Git" \
-    org.label-schema.vcs-url="https://github.com/node-red/node-red-docker" \
+    org.label-schema.vcs-url="https://github.com/sinny777/edge-computing" \
     org.label-schema.arch=${ARCH} \
-    authors="Dave Conway-Jones, Nick O'Leary, James Thomas, Raymond Mouthaan"
+    authors="Gurvinder Singh"
 
 COPY --from=build /usr/src/node-red/prod_node_modules ./node_modules
 
 # Chown, install devtools & Clean up
 RUN chown -R node-red:root /usr/src/node-red && \
-    /tmp/install_devtools.sh && \
+    # /tmp/install_devtools.sh && \
+    apk add --no-cache --virtual devtools build-base linux-headers udev python python3 && \
     rm -r /tmp/*
 
 USER node-red
+
+RUN export OPENSSL_ROOT_DIR=/usr/local/opt/openssl
+RUN export LDFLAGS="-L$OPENSSL_ROOT_DIR/lib -L/usr/local/opt/gsas/lib"
+RUN export CPPFLAGS="-I$OPENSSL_ROOT_DIR/include"
+RUN export OPENSSL_INCLUDE_DIR=$OPENSSL_ROOT_DIR/include
 
 # Env variables
 ENV NODE_RED_VERSION=$NODE_RED_VERSION \

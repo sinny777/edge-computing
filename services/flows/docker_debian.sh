@@ -6,11 +6,11 @@ echo "node-red version: ${NODE_RED_VERSION}"
 echo "#########################################################################"
 
 docker build --rm --no-cache \
-    --build-arg ARCH=amd64 \
-    --build-arg NODE_VERSION=12 \
+    --build-arg ARCH=arm64v8 \
+    --build-arg NODE_VERSION=12.22.1 \
     --build-arg NODE_RED_VERSION=${NODE_RED_VERSION} \
     --build-arg OS=buster-slim \
     --build-arg BUILD_DATE="$(date +"%Y-%m-%dT%H:%M:%SZ")" \
     --build-arg TAG_SUFFIX=default \
     --file Dockerfile.debian \
-    --tag sinny777/edge-flows_amd64:1.0.0 .
+    --tag sinny777/edge-flows_arm64:1.0.0 .

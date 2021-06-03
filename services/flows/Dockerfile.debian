@@ -1,9 +1,12 @@
-ARG ARCH=amd64
+ARG ARCH=arm64v8
 ARG NODE_VERSION=12
 ARG OS=buster-slim
 
 #### Stage BASE ########################################################################################################
 FROM ${ARCH}/node:${NODE_VERSION}-${OS} AS base
+
+# Set work directory
+WORKDIR /usr/src/node-red
 
 # Copy scripts
 COPY scripts/*.sh /tmp/
@@ -27,9 +30,6 @@ RUN set -ex && \
     useradd --home-dir /usr/src/node-red --uid 1000 node-red && \
     chown -R node-red:root /data && chmod -R g+rwX /data && \
     chown -R node-red:root /usr/src/node-red && chmod -R g+rwX /usr/src/node-red
-
-# Set work directory
-WORKDIR /usr/src/node-red
 
 # package.json contains Node-RED NPM module and node dependencies
 COPY package.json .
