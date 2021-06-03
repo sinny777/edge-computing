@@ -11,22 +11,28 @@
     "requiredServices": [],
     "userInputs": [
         {
+            "name": "TITLE",
+            "label": "Title",
+            "type": "string",
+            "defaultValue": "Edge Rules"
+        },
+        {
             "name": "FLOWS",
             "label": "FLOWS file",
             "type": "string",
             "defaultValue": "flows.json"
         },
         {
-            "name": "CPPFLAGS",
-            "label": "CPPFLAGS",
+            "name": "NODE_RED_CREDENTIAL_SECRET",
+            "label": "NODE_RED_CREDENTIAL_SECRET",
             "type": "string",
-            "defaultValue": "-I/usr/local/opt/openssl/include"
+            "defaultValue": "1SatnamW"
         },
         {
-            "name": "LDFLAGS",
-            "label": "LDFLAGS",
+            "name": "USER_DIR",
+            "label": "USER_DIR",
             "type": "string",
-            "defaultValue": "-L/usr/local/opt/openssl/lib"
+            "defaultValue": "./data"
         },
         {
             "name": "kafka_brokers",
@@ -35,22 +41,22 @@
             "defaultValue": "broker-1-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-4-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-2-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-3-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-5-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093,broker-0-0lr3601j3vcp93dp.kafka.svc05.us-south.eventstreams.cloud.ibm.com:9093"
         },
         {
-            "name": "kafka_admin_url",
-            "label": "kafka_admin_url",
-            "type": "string",
-            "defaultValue": "https://0lr3601j3vcp93dp.svc05.us-south.eventstreams.cloud.ibm.com"
-        },
-        {
-            "name": "kafka_http_url",
-            "label": "kafka_http_url",
-            "type": "string",
-            "defaultValue": "https://0lr3601j3vcp93dp.svc05.us-south.eventstreams.cloud.ibm.com"
-        },
-        {
             "name": "kafka_password",
             "label": "kafka_password",
             "type": "string",
-            "defaultValue": "C5DvOdXt9UkNxqUPOajw6lTWnxzMYFg6os5-AqiZTo58"
+            "defaultValue": "oW2MuJ8XIOqjr4T3fzXXhqlrVKqcstOuVGWFFkAdRIXO"
+        },
+        {
+            "name": "TWILIO_TOKEN",
+            "label": "TWILIO_TOKEN",
+            "type": "string",
+            "defaultValue": "d498bb84ceb30ed9985f56a1adc04bd6"
+        },
+        {
+            "name": "SLACK_WEBHOOK",
+            "label": "SLACK_WEBHOOK",
+            "type": "string",
+            "defaultValue": "https://hooks.slack.com/services/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"
         }
     ],
     "deployment": {
