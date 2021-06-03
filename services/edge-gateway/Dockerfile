@@ -41,6 +41,7 @@ RUN npm i edge-sx127x
 RUN npm run build
 
 ENV HOST=0.0.0.0 PORT=9000
+ENV TZ Asia/Kolkata
 
 EXPOSE ${PORT}
 

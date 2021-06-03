@@ -40,6 +40,7 @@ RUN chmod 755 /usr/src/app/setup.sh && \
 
 ENV LD_LIBRARY_PATH=/opt/vc/lib
 ENV PATH="$PATH:/opt/vc/bin"
+ENV TZ Asia/Kolkata
 RUN echo "/opt/vc/lib" > /etc/ld.so.conf.d/00-vcms.conf \
     && ldconfig
 # ADD 00-vmcs.conf /etc/ld.so.conf.d/
