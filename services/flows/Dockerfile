@@ -3,8 +3,10 @@ FROM nodered/node-red
 # Copy package.json to the WORKDIR so npm builds all
 # of your added nodes modules for Node-RED
 COPY package.json .
-ADD ./config ./data
-ADD ./certs .
+COPY flows.json .
+COPY settings.js .
+ADD config /data
+ADD certs ./certs
 
 RUN npm install --unsafe-perm --no-update-notifier --no-fund --only=production && \
     npm uninstall node-red-node-gpio && \

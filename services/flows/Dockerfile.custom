@@ -35,7 +35,7 @@ WORKDIR /usr/src/node-red
 COPY package.json .
 COPY flows.json .
 COPY settings.js .
-ADD data /data
+ADD config /data
 ADD certs ./certs
 
 #### Stage BUILD #######################################################################################################
