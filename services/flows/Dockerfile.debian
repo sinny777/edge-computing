@@ -1,5 +1,5 @@
 ARG ARCH=arm64v8
-ARG NODE_VERSION=12
+ARG NODE_VERSION=12.22.1
 ARG OS=buster-slim
 
 #### Stage BASE ########################################################################################################
@@ -78,10 +78,10 @@ RUN chown -R node-red:root /usr/src/node-red && \
 
 USER node-red
 
-RUN export OPENSSL_ROOT_DIR=/usr/local/opt/openssl
-RUN export LDFLAGS="-L$OPENSSL_ROOT_DIR/lib -L/usr/local/opt/gsas/lib"
-RUN export CPPFLAGS="-I$OPENSSL_ROOT_DIR/include"
-RUN export OPENSSL_INCLUDE_DIR=$OPENSSL_ROOT_DIR/include
+RUN export OPENSSL_ROOT_DIR=/usr/local/opt/openssl && \
+    export LDFLAGS="-L$OPENSSL_ROOT_DIR/lib -L/usr/local/opt/gsas/lib" && \
+    export CPPFLAGS="-I$OPENSSL_ROOT_DIR/include" && \
+    export OPENSSL_INCLUDE_DIR=$OPENSSL_ROOT_DIR/include
 
 # Env variables
 ENV NODE_RED_VERSION=$NODE_RED_VERSION \

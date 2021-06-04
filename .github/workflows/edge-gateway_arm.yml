@@ -42,6 +42,7 @@ jobs:
           fi
 
           echo ::set-output name=docker_image::${DOCKER_IMAGE}
+          echo ::set-output name=suffix::${SUFFIX}
           echo ::set-output name=version::${VERSION}
           echo ::set-output name=buildx_args::--platform ${DOCKER_PLATFORMS} \
             --build-arg ARCH=${ARCH} \
@@ -75,7 +76,7 @@ jobs:
         name: Docker Check Manifest
         if: always() && github.event_name != 'pull_request'
         run: |
-          docker run --rm mplatform/mquery ${{ steps.prepare.outputs.docker_image }}:${{ steps.prepare.outputs.version }}
+          docker run --rm mplatform/mquery ${{ steps.prepare.outputs.docker_image }}_${{ steps.prepare.outputs.suffix }}:${{ steps.prepare.outputs.version }}
       -
         name: Clear
         if: always() && github.event_name != 'pull_request'

@@ -17,6 +17,7 @@ LABEL org.label-schema.build-date=${BUILD_DATE} \
     authors="Gurvinder Singh <sinny777@gmail.com>"
 
 COPY init-mongo.sh /docker-entrypoint-initdb.d/
+ENV TZ Asia/Kolkata
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
