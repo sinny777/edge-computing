@@ -106,7 +106,7 @@ hzn dev service new -s myservice -V 1.0.0 -i $DOCKER_HUB_ID/myservice --noImageG
 
 eval $(hzn util configconv -f hzn.json)
 export ARCH=$(hzn architecture)
-    
+
 $hzn exchange service publish -f service.definition.json -P
 $hzn exchange service list
 $hzn exchange service remove ${HZN_ORG_ID}/${SERVICE_NAME}_${SERVICE_VERSION}_${ARCH}
@@ -120,6 +120,7 @@ $hzn exchange deployment listpolicy ${HZN_ORG_ID}/policy-${SERVICE_NAME}_${SERVI
 $hzn exchange deployment removepolicy ${HZN_ORG_ID}/policy-${SERVICE_NAME}_${SERVICE_VERSION}
 
 
+${SERVICE_NAME}_${ARCH}:${SERVICE_VERSION}
     - Node Setup
     
 export HZN_ORG_ID=myorg

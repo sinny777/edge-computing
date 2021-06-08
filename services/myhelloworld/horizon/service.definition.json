@@ -1,9 +1,9 @@
 {
     "org": "$HZN_ORG_ID",
     "label": "$SERVICE_NAME for $ARCH",
-    "description": "",
+    "description": "A super-simple sample Horizon service",
     "public": true,
-    "documentation": "",
+    "documentation": "https://github.com/open-horizon/examples/blob/master/edge/services/helloworld/README.md",
     "url": "$SERVICE_NAME",
     "version": "$SERVICE_VERSION",
     "arch": "$ARCH",
@@ -14,17 +14,13 @@
             "name": "HW_WHO",
             "label": "Who to say hello to",
             "type": "string",
-            "defaultValue": "Engineer!!"
-        }
+            "defaultValue": "Engineer"
+        }       
     ],
     "deployment": {
         "services": {
             "$SERVICE_NAME": {
-                "image": "${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION",
-                "ports": [ 
-                    { "HostIP": "0.0.0.0", "HostPort": "80:80/tcp" }
-                ],
-                "privileged": false                
+                "image": "${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION"           
             }
         }
     }

@@ -38,6 +38,10 @@ cat /etc/default/horizon
 ## Create base package structure for a new service
 
 ```
-hzn dev service new -s myservice -V 1.0.0 -i $DOCKER_HUB_ID/myservice --noImageGen
+
+hzn dev service new -s myhelloworld -V 0.0.1 -i sinny777/myhelloworld --noImageGen
+
+
+docker run -it --rm --name myhelloworld -e HZN_DEVICE_ID=RaspberryPi4 -e HW_WHO="Engineers" sinny777/myhelloworld_amd64:0.0.1
 
 ```

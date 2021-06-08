@@ -63,10 +63,11 @@
         "services": {
             "$SERVICE_NAME": {
                 "image": "${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION",
+                "network": "host",
                 "ports": [ 
                     { "HostIP": "0.0.0.0", "HostPort": "1880:1880/tcp" }
                 ],
-                "network": "host",
+                "devices": ["/dev/mem:/dev/mem", "/sys/class/gpio:/sys/class/gpio"],
                 "privileged": true               
             }
         }

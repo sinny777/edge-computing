@@ -23,7 +23,7 @@
     {
       "serviceOrgid": "$HZN_ORG_ID",
       "serviceUrl": "$SERVICE_NAME",
-      "serviceVersionRange": "[0.0.0,INFINITY)",
+      "serviceVersionRange": "[1.0.0,INFINITY]",
       "inputs": [
         {
           "name": "DB_CONNECTOR",
