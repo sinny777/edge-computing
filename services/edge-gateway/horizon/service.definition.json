@@ -60,7 +60,7 @@
     ],
     "deployment": {
         "services": {
-            "$SERVICE_NAME": {
+            "edge-gateway": {
                 "image": "${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION",
                 "ports": [ 
                     { "HostIP": "0.0.0.0" , "HostPort": "9000:9000/tcp"}

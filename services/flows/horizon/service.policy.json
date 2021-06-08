@@ -3,7 +3,7 @@
     ],
     "constraints": [
       "model == \"Rpi4\"",
-      "isGateway == true"
+      "runFlows == true"
     ]
 }
   

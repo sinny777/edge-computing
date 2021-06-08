@@ -61,13 +61,12 @@
     ],
     "deployment": {
         "services": {
-            "$SERVICE_NAME": {
+            "edge-flows": {
                 "image": "${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION",
-                "network": "host",
                 "ports": [ 
                     { "HostIP": "0.0.0.0", "HostPort": "1880:1880/tcp" }
                 ],
-                "devices": ["/dev/mem:/dev/mem", "/sys/class/gpio:/sys/class/gpio"],
+                "network": "host",
                 "privileged": true               
             }
         }

@@ -57,7 +57,7 @@ export class GatewayController {
   ): Promise<SystemInfo> {
     console.log('IN getSystemInformation with Payload: >>> ', payload);
     let systemInfo: SystemInfo = await this.gatewayService.getSystemInformation(payload);
-    systemInfo = await this.systemInfoRepository.create(systemInfo);
+    // systemInfo = await this.systemInfoRepository.create(systemInfo);
     console.log(systemInfo);
     return systemInfo;    
   }

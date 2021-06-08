@@ -19,7 +19,7 @@
     ],
     "deployment": {
         "services": {
-            "$SERVICE_NAME": {
+            "myhelloworld": {
                 "image": "${DOCKER_IMAGE_BASE}_$ARCH:$SERVICE_VERSION"           
             }
         }
