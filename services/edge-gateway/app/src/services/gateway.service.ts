@@ -38,5 +38,10 @@ export class GatewayService implements GatewayServiceI {
     return systemInfo;
   }
 
+  async getSystemDetails(): Promise<any>{   
+    let systemInfo = await this.commonService.getSystemDetails();
+    return systemInfo;
+  }
+
 
 }

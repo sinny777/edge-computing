@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  keycloak:
+    image: sinny777/edge-gateway_arm:1.0.0
+    restart: on-failure
+    container_name: 'edge-gateway'
+    command:
+      - '--privileged'
+    volumes:
+      - /dev/mem:/dev/mem
+      - /sys/class/gpio:/sys/class/gpio
+    environment:
+      - DB_CONNECTOR=mongodb
+      - DB_HOST=mongodb
+      - DB_PORT=27017
+      - DB_USERNAME=sinny777
+      - DB_PASSWORD=1SatnamW
+      - DB_NAME=smartthings
+      - SIMULATE=false
+    ports:
+      - '9000:9000'
+    privileged: true
+    depends_on:
+      - mongodb
+  mongodb:
+    image: sinny777/mongodb:1.0.0
+    container_name: 'mongodb'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=P@ssw0rd
+      - DB_NAME=smartthings
+      - DB_USERNAME=sinny777
+      - DB_PASSWORD=1SatnamW
+      - MONGO_DATA_DIR=/data/db
+    restart: 'always'
+    ports:
+      - '27017:27017'

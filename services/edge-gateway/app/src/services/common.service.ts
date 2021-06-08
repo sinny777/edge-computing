@@ -37,6 +37,10 @@ export class CommonService implements CommonServiceI {
     return systemInfo;
   }
 
+  async getSystemDetails(): Promise<any> {   
+    return await si.system();
+  }
+
   async getSerialNumber(): Promise<string> {
 		try{
 			  let content = fs.readFileSync('/proc/cpuinfo', 'utf8');

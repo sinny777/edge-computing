@@ -17,7 +17,7 @@ export class GatewayController {
     ) {}
 
   // Map to `GET /system`
-  @get('/ping', {
+  @get('/system', {
     responses: {
       '200': {
         description: 'System Information',
@@ -25,15 +25,8 @@ export class GatewayController {
       },
     },
   })
-  async ping(): Promise<SystemInfo> {
-    const valueObject = {
-      cpu: '*',
-      osInfo: 'platform, release',
-      system: 'model, version, serial, uuid, sku',
-      mem: 'total, free, used',
-      battery: 'hasbattery, percent'
-    }
-    return await this.gatewayService.getSystemInformation(valueObject);
+  async systemDetails(): Promise<any> {
+    return await this.gatewayService.getSystemDetails();
   }
 
 

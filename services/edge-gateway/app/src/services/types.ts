@@ -1,6 +1,7 @@
 import { SystemInfo } from "../models";
 
 export interface CommonServiceI {
+    getSystemDetails(): Promise<any> ;
     getSystemInformation(valueObject: any): Promise<SystemInfo> ;
     getSerialNumber(): Promise<string> ;
 }
@@ -13,6 +14,7 @@ export interface RadioServiceI {
 export interface GatewayServiceI {
     initGateway(): void;   
     syncWithCloud(): void;
+    getSystemDetails(): Promise<any> ;
     getSystemInformation(valueObject: any): Promise<SystemInfo> ;
 }
 
