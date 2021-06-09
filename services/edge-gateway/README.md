@@ -37,6 +37,13 @@ docker run --rm -it --name edge-gateway -p 9000:9000 \
     -v /sys/class/gpio:/sys/class/gpio \
     --privileged \
     sinny777/edge-gateway_arm64:1.0.0
+
+sudo docker run --rm -it --name edge-gateway -p 9000:9000 \
+    -e SIMULATE=false \
+    -v /dev/mem:/dev/mem \
+    -v /sys/class/gpio:/sys/class/gpio \
+    --privileged \
+    sinny777/edge-gateway_arm:1.0.0
     
 ```
 
