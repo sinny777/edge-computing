@@ -26,12 +26,11 @@ RUN set -ex && \
         nano \
         openssl \
         openssh-client \
-        apt-get -qy install curl ca-certificates nano python make \
-        build-essential \
-        cmake \
-        gcc \
-        -y --no-install-recommends --fix-missing apt-utils netcat && rm -rf /var/lib/apt/lists/*
-   
+        ca-certificates make
+
+# Install Build tools
+RUN apk add --no-cache --virtual buildtools build-base linux-headers udev python
+    
     # adduser -h /usr/src/node-red -D -H node-red -u 1000 && \
     # chown -R node-red:root /data && chmod -R g+rwX /data && \
     # chown -R node-red:root /usr/src/node-red && chmod -R g+rwX /usr/src/node-red
@@ -44,11 +43,16 @@ ADD ./app .
 RUN npm install -g node-gyp
 RUN npm install -g node-pre-gyp
 # RUN npm i -g @loopback/build@6.1.1
-
-RUN npm install
+RUN npm install --unsafe-perm --no-update-notifier --no-fund --only=production
+# RUN npm install
 RUN npm i edge-sx127x
 RUN npm run build
 
+RUN export OPENSSL_ROOT_DIR=/usr/local/opt/openssl && \
+    export LDFLAGS="-L$OPENSSL_ROOT_DIR/lib -L/usr/local/opt/gsas/lib" && \
+    export CPPFLAGS="-I$OPENSSL_ROOT_DIR/include" && \
+    export OPENSSL_INCLUDE_DIR=$OPENSSL_ROOT_DIR/OPENSSL_INCLUDE_DIR
+    
 ENV HOST=0.0.0.0 PORT=9000
 ENV TZ=Asia/Kolkata
 
