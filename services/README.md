@@ -1,4 +1,9 @@
-# Getting Started
+# Edge Services
+
+- [Edge Gateway Service](https://github.com/edge-services/gateway)
+- [Edge Mongodb](https://github.com/edge-services/mongodb)
+- [Edge Flows](https://github.com/edge-services/flows)
+- [Edge Security](https://github.com/edge-services/security)
 
 ## Preparing to create an Edge service
 
@@ -41,7 +46,6 @@ cat /etc/default/horizon
 
 hzn dev service new -s myhelloworld -V 0.0.1 -i sinny777/myhelloworld --noImageGen
 
-
-docker run -it --rm --name myhelloworld -e HZN_DEVICE_ID=RaspberryPi4 -e HW_WHO="Engineers" sinny777/myhelloworld_amd64:0.0.1
-
 ```
+
+
