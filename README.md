@@ -2,6 +2,16 @@
 
 ## NOTE: WORK IS IN PROGRESS
 
+## ARCHITECTURE DESIGN
+
+Below diagram shows the overall architecture of a complete solution that uses Watson Assistant as a backbone of the whole application:
+
+<!-- ![Architecture Design](https://github.ibm.com/gurvsin3/virtualagent/raw/master/docs/VirualAssitant_Architecture_V1.png) -->
+
+<p align="center">
+  <img width="600" src="https://raw.githubusercontent.com/sinny777/edge-computing/master/docs/SmartThingsReferenceArchitectureV2.pdf">
+</p>
+
 This repository is based on generic architecture for Edge Computing, which includes both working on the Edge Devices and also on the Edge Server.
 
 ## OPEN HORIZON 
