@@ -1,6 +1,6 @@
 # Edge Computing
 
-## REFRENCE ARCHITECTURE
+## REFERENCE ARCHITECTURE
 
 Below diagram shows the overall architecture of a complete solution for Edge Computing:
 
@@ -9,6 +9,13 @@ Below diagram shows the overall architecture of a complete solution for Edge Com
 <p align="center">
   <img width="600" src="https://raw.githubusercontent.com/sinny777/edge-computing/master/docs/SmartThingsArchitecture.png">
 </p>
+
+## EDGE SERVICES
+
+- [Edge Gateway Service](https://github.com/edge-services/gateway)
+- [Edge Mongodb](https://github.com/edge-services/mongodb)
+- [Edge Flows](https://github.com/edge-services/flows)
+- [Edge Security](https://github.com/edge-services/security)
 
 ## OPEN HORIZON 
 
