@@ -1,8 +1,6 @@
 # Edge Computing
 
-## NOTE: WORK IS IN PROGRESS
-
-## ARCHITECTURE DESIGN
+## REFRENCE ARCHITECTURE
 
 Below diagram shows the overall architecture of a complete solution for Edge Computing:
 
@@ -11,8 +9,6 @@ Below diagram shows the overall architecture of a complete solution for Edge Com
 <p align="center">
   <img width="600" src="https://raw.githubusercontent.com/sinny777/edge-computing/master/docs/SmartThingsArchitecture.png">
 </p>
-
-This repository is based on generic architecture for Edge Computing, which includes both working on the Edge Devices and also on the Edge Server.
 
 ## OPEN HORIZON 
 
